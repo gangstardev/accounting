@@ -257,7 +257,16 @@ namespace AccountingApp.Forms
                 var printDialog = new PrintDialog();
                 if (printDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // اینجا کد پرینت اضافه می‌شود
+                    // تولید PDF موقت برای پرینت
+                    var tempPdfPath = Path.Combine(Path.GetTempPath(), $"temp_invoice_{_sale.InvoiceNumber}.pdf");
+                    ExportInvoiceToPdf(tempPdfPath);
+                    
+                    // پرینت فایل PDF
+                    var process = new System.Diagnostics.Process();
+                    process.StartInfo.FileName = tempPdfPath;
+                    process.StartInfo.Verb = "print";
+                    process.Start();
+                    
                     MessageBox.Show("فاکتور با موفقیت پرینت شد.", "پیام", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -304,9 +313,10 @@ namespace AccountingApp.Forms
                 {
                     container.Page(page =>
                     {
-                        page.Size(PageSizes.A4);
-                        page.Margin(1, Unit.Centimetre);
-                        page.DefaultTextStyle(x => x.FontFamily("Vazir").FontSize(11));
+                        // تنظیم سایز فاکتور به 72.1 میلی‌متر در 210 میلی‌متر
+                        page.Size(new PageSize(72.1f, 210f, Unit.Millimetre));
+                        page.Margin(2, Unit.Millimetre);
+                        page.DefaultTextStyle(x => x.FontFamily("Vazir").FontSize(8));
 
                         page.Header().Element(ComposeHeader);
                         page.Content().Element(container => ComposeContent(container, shamsiDate));
@@ -332,26 +342,26 @@ namespace AccountingApp.Forms
             container.Column(column =>
             {
                 column.Item().AlignCenter().Text("قهوه سمکو")
-                    .FontFamily("Vazir").FontSize(20).Bold().FontColor(Colors.Black);
+                    .FontFamily("Vazir").FontSize(12).Bold().FontColor(Colors.Black);
                 column.Item().AlignCenter().Text("به بلندای کوه دماوند")
-                    .FontFamily("Vazir").FontSize(13).FontColor(Colors.Grey.Darken2);
-                column.Item().PaddingTop(10);
+                    .FontFamily("Vazir").FontSize(8).FontColor(Colors.Grey.Darken2);
+                column.Item().PaddingTop(2);
             });
         }
 
         private void ComposeContent(IContainer container, string shamsiDate)
         {
-            container.Padding(10).Column(column =>
+            container.Padding(2).Column(column =>
             {
                 // اطلاعات فاکتور
-                column.Item().PaddingBottom(5).Row(row =>
+                column.Item().PaddingBottom(2).Row(row =>
                 {
-                    row.RelativeItem().AlignRight().Text($"شماره فاکتور: {_sale.InvoiceNumber}").FontFamily("Vazir").FontSize(12).Bold();
-                    row.RelativeItem().AlignCenter().Text($"تاریخ و ساعت: {shamsiDate}").FontFamily("Vazir").FontSize(12).Bold();
+                    row.RelativeItem().AlignRight().Text($"شماره فاکتور: {_sale.InvoiceNumber}").FontFamily("Vazir").FontSize(7).Bold();
+                    row.RelativeItem().AlignCenter().Text($"تاریخ و ساعت: {shamsiDate}").FontFamily("Vazir").FontSize(7).Bold();
                 });
 
                 // جدول کالاها
-                column.Item().PaddingVertical(5).Table(table =>
+                column.Item().PaddingVertical(2).Table(table =>
                 {
                     table.ColumnsDefinition(columns =>
                     {
@@ -364,37 +374,37 @@ namespace AccountingApp.Forms
                     // هدر جدول
                     table.Header(header =>
                     {
-                        header.Cell().Background(Colors.Grey.Lighten2).Padding(3).AlignCenter().Text("نام کالا").FontFamily("Vazir").FontSize(11).Bold();
-                        header.Cell().Background(Colors.Grey.Lighten2).Padding(3).AlignCenter().Text("تعداد").FontFamily("Vazir").FontSize(11).Bold();
-                        header.Cell().Background(Colors.Grey.Lighten2).Padding(3).AlignCenter().Text("قیمت واحد").FontFamily("Vazir").FontSize(11).Bold();
-                        header.Cell().Background(Colors.Grey.Lighten2).Padding(3).AlignCenter().Text("جمع کل").FontFamily("Vazir").FontSize(11).Bold();
+                        header.Cell().Background(Colors.Grey.Lighten2).Padding(1).AlignCenter().Text("نام کالا").FontFamily("Vazir").FontSize(6).Bold();
+                        header.Cell().Background(Colors.Grey.Lighten2).Padding(1).AlignCenter().Text("تعداد").FontFamily("Vazir").FontSize(6).Bold();
+                        header.Cell().Background(Colors.Grey.Lighten2).Padding(1).AlignCenter().Text("قیمت واحد").FontFamily("Vazir").FontSize(6).Bold();
+                        header.Cell().Background(Colors.Grey.Lighten2).Padding(1).AlignCenter().Text("جمع کل").FontFamily("Vazir").FontSize(6).Bold();
                     });
 
                     // ردیف‌های جدول
                     foreach (var item in _sale.Items)
                     {
-                        table.Cell().Padding(2).AlignRight().Text(item.Product.Name).FontFamily("Vazir").FontSize(11);
-                        table.Cell().Padding(2).AlignCenter().Text(item.Quantity.ToString()).FontFamily("Vazir").FontSize(11);
-                        table.Cell().Padding(2).AlignCenter().Text(item.UnitPrice.ToString("N0")).FontFamily("Vazir").FontSize(11);
-                        table.Cell().Padding(2).AlignCenter().Text(item.TotalPrice.ToString("N0")).FontFamily("Vazir").FontSize(11);
+                        table.Cell().Padding(1).AlignRight().Text(item.Product.Name).FontFamily("Vazir").FontSize(6);
+                        table.Cell().Padding(1).AlignCenter().Text(item.Quantity.ToString()).FontFamily("Vazir").FontSize(6);
+                        table.Cell().Padding(1).AlignCenter().Text(item.UnitPrice.ToString("N0")).FontFamily("Vazir").FontSize(6);
+                        table.Cell().Padding(1).AlignCenter().Text(item.TotalPrice.ToString("N0")).FontFamily("Vazir").FontSize(6);
                     }
                 });
 
                 // جمع کل و مبلغ نهایی
-                column.Item().PaddingTop(10).Border(1).BorderColor(Colors.Grey.Lighten1).Padding(5).Row(row =>
+                column.Item().PaddingTop(2).Border(1).BorderColor(Colors.Grey.Lighten1).Padding(2).Row(row =>
                 {
-                    row.RelativeItem().AlignRight().Text("جمع کل:").FontFamily("Vazir").FontSize(12).Bold();
-                    row.RelativeItem().AlignLeft().Text(_sale.TotalAmount.ToString("N0") + " ریال").FontFamily("Vazir").FontSize(12).Bold();
+                    row.RelativeItem().AlignRight().Text("جمع کل:").FontFamily("Vazir").FontSize(7).Bold();
+                    row.RelativeItem().AlignLeft().Text(_sale.TotalAmount.ToString("N0") + " ریال").FontFamily("Vazir").FontSize(7).Bold();
                 });
 
                 column.Item().Row(row =>
                 {
-                    row.RelativeItem().AlignRight().Text("مبلغ فاکتور:").FontFamily("Vazir").FontSize(12).Bold();
-                    row.RelativeItem().AlignLeft().Text(_sale.FinalAmount.ToString("N0") + " ریال").FontFamily("Vazir").FontSize(12).Bold().FontColor(Colors.Red.Medium);
+                    row.RelativeItem().AlignRight().Text("مبلغ فاکتور:").FontFamily("Vazir").FontSize(7).Bold();
+                    row.RelativeItem().AlignLeft().Text(_sale.FinalAmount.ToString("N0") + " ریال").FontFamily("Vazir").FontSize(7).Bold().FontColor(Colors.Red.Medium);
                 });
 
                 // اطلاعات تماس و آدرس
-                column.Item().PaddingTop(10).Padding(5).Column(col =>
+                column.Item().PaddingTop(2).Padding(2).Column(col =>
                 {
                     try
                     {
@@ -408,21 +418,21 @@ namespace AccountingApp.Forms
                             var fal = falList[rnd.Next(falList.Count)];
                             var lines = fal.interpreter.Split('\n');
                             if (lines.Length >= 1)
-                                col.Item().AlignCenter().Text(lines[0]).FontFamily("Vazir").FontSize(12).FontColor(Colors.Brown.Darken2);
+                                col.Item().AlignCenter().Text(lines[0]).FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
                             if (lines.Length >= 2)
-                                col.Item().AlignCenter().Text(lines[1]).FontFamily("Vazir").FontSize(12).FontColor(Colors.Brown.Darken2);
+                                col.Item().AlignCenter().Text(lines[1]).FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
                         }
                         else
                         {
-                            col.Item().AlignCenter().Text("به نام خداوند جان و خرد").FontFamily("Vazir").FontSize(12).FontColor(Colors.Brown.Darken2);
-                            col.Item().AlignCenter().Text("کزین برتر اندیشه برنگذرد").FontFamily("Vazir").FontSize(12).FontColor(Colors.Brown.Darken2);
+                            col.Item().AlignCenter().Text("به نام خداوند جان و خرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
+                            col.Item().AlignCenter().Text("کزین برتر اندیشه برنگذرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
                         }
                     }
                     catch
                     {
                         // در صورت خطا، فال پیش‌فرض نمایش داده می‌شود
-                        col.Item().AlignCenter().Text("به نام خداوند جان و خرد").FontFamily("Vazir").FontSize(12).FontColor(Colors.Brown.Darken2);
-                        col.Item().AlignCenter().Text("کزین برتر اندیشه برنگذرد").FontFamily("Vazir").FontSize(12).FontColor(Colors.Brown.Darken2);
+                        col.Item().AlignCenter().Text("به نام خداوند جان و خرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
+                        col.Item().AlignCenter().Text("کزین برتر اندیشه برنگذرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
                     }
                 });
             });

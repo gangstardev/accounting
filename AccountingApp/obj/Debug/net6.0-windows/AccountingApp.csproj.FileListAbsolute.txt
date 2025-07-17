@@ -101,3 +101,4 @@ F:\accounting\AccountingApp\bin\Debug\net6.0-windows\runtimes\win-x86\native\lib
 F:\accounting\AccountingApp\bin\Debug\net6.0-windows\runtimes\win-x86\native\libstdc++-6.dll
 F:\accounting\AccountingApp\bin\Debug\net6.0-windows\runtimes\win-x86\native\libwinpthread-1.dll
 F:\accounting\AccountingApp\bin\Debug\net6.0-windows\runtimes\win-x86\native\qpdf.dll
+F:\accounting\AccountingApp\obj\Debug\net6.0-windows\AccountingApp.sourcelink.json
