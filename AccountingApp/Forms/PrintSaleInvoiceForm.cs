@@ -261,13 +261,24 @@ namespace AccountingApp.Forms
                     var tempPdfPath = Path.Combine(Path.GetTempPath(), $"temp_invoice_{_sale.InvoiceNumber}.pdf");
                     ExportInvoiceToPdf(tempPdfPath);
                     
-                    // پرینت فایل PDF
-                    var process = new System.Diagnostics.Process();
-                    process.StartInfo.FileName = tempPdfPath;
-                    process.StartInfo.Verb = "print";
-                    process.Start();
-                    
-                    MessageBox.Show("فاکتور با موفقیت پرینت شد.", "پیام", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // پرینت فایل PDF با استفاده از Adobe Reader یا پیش‌فرض سیستم
+                    try
+                    {
+                        var process = new System.Diagnostics.Process();
+                        process.StartInfo.FileName = tempPdfPath;
+                        process.StartInfo.Verb = "print";
+                        process.Start();
+                    }
+                    catch
+                    {
+                        // اگر روش بالا کار نکرد، فایل را باز می‌کنیم تا کاربر دستی پرینت کند
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = tempPdfPath,
+                            UseShellExecute = true
+                        });
+                        MessageBox.Show("فایل PDF باز شد. لطفاً از منوی File > Print پرینت کنید.", "پرینت", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
             catch (Exception ex)
@@ -313,8 +324,8 @@ namespace AccountingApp.Forms
                 {
                     container.Page(page =>
                     {
-                        // تنظیم سایز فاکتور به 72.1 میلی‌متر در 210 میلی‌متر (21 سانتی‌متر)
-                        page.Size(new PageSize(72.1f, 210f, Unit.Millimetre));
+                        // تنظیم سایز فاکتور به 8 سانتی‌متر عرض در 21 سانتی‌متر طول
+                        page.Size(new PageSize(8f, 21f, Unit.Centimetre));
                         page.Margin(2, Unit.Millimetre);
                         page.DefaultTextStyle(x => x.FontFamily("Vazir").FontSize(8));
 
