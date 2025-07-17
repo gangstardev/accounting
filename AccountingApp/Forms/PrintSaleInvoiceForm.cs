@@ -313,7 +313,7 @@ namespace AccountingApp.Forms
                 {
                     container.Page(page =>
                     {
-                        // تنظیم سایز فاکتور به 72.1 میلی‌متر در 210 میلی‌متر
+                        // تنظیم سایز فاکتور به 72.1 میلی‌متر در 210 میلی‌متر (21 سانتی‌متر)
                         page.Size(new PageSize(72.1f, 210f, Unit.Millimetre));
                         page.Margin(2, Unit.Millimetre);
                         page.DefaultTextStyle(x => x.FontFamily("Vazir").FontSize(8));
@@ -418,21 +418,21 @@ namespace AccountingApp.Forms
                             var fal = falList[rnd.Next(falList.Count)];
                             var lines = fal.interpreter.Split('\n');
                             if (lines.Length >= 1)
-                                col.Item().AlignCenter().Text(lines[0]).FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
+                                col.Item().AlignCenter().Text(lines[0]).FontFamily("Vazir").FontSize(7).FontColor(Colors.Black);
                             if (lines.Length >= 2)
-                                col.Item().AlignCenter().Text(lines[1]).FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
+                                col.Item().AlignCenter().Text(lines[1]).FontFamily("Vazir").FontSize(7).FontColor(Colors.Black);
                         }
                         else
                         {
-                            col.Item().AlignCenter().Text("به نام خداوند جان و خرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
-                            col.Item().AlignCenter().Text("کزین برتر اندیشه برنگذرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
+                            col.Item().AlignCenter().Text("به نام خداوند جان و خرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Black);
+                            col.Item().AlignCenter().Text("کزین برتر اندیشه برنگذرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Black);
                         }
                     }
                     catch
                     {
                         // در صورت خطا، فال پیش‌فرض نمایش داده می‌شود
-                        col.Item().AlignCenter().Text("به نام خداوند جان و خرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
-                        col.Item().AlignCenter().Text("کزین برتر اندیشه برنگذرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Brown.Darken2);
+                        col.Item().AlignCenter().Text("به نام خداوند جان و خرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Black);
+                        col.Item().AlignCenter().Text("کزین برتر اندیشه برنگذرد").FontFamily("Vazir").FontSize(7).FontColor(Colors.Black);
                     }
                 });
             });
