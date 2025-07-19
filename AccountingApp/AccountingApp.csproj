@@ -13,9 +13,11 @@
     <PackageReference Include="PdfSharp" Version="6.2.0" />
     <PackageReference Include="PdfSharp.MigraDoc" Version="2.0.1" />
     <PackageReference Include="QuestPDF" Version="2025.7.0" />
+    <PackageReference Include="Stimulsoft.Reports.Net" Version="2025.3.1" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
     <PackageReference Include="Dapper" Version="2.1.28" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.7" />
+    <PackageReference Include="PdfiumViewer" Version="2.13.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +25,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Reports\*.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Reports\*.mrt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

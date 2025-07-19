@@ -62,9 +62,17 @@
               "target": "Package",
               "version": "[2.0.1, )"
             },
+            "PdfiumViewer": {
+              "target": "Package",
+              "version": "[2.13.0, )"
+            },
             "QuestPDF": {
               "target": "Package",
               "version": "[2025.7.0, )"
+            },
+            "Stimulsoft.Reports.Net": {
+              "target": "Package",
+              "version": "[2025.3.1, )"
             },
             "System.Data.SQLite": {
               "target": "Package",

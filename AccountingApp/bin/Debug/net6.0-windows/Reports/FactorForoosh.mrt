@@ -1,0 +1,169 @@
+{
+  "Report": {
+    "ReportName": "FactorForoosh",
+    "ReportAlias": "فاکتور فروش",
+    "ReportVersion": "2024.1.1",
+    "ReportCreated": "2024-01-01T00:00:00",
+    "ReportChanged": "2024-01-01T00:00:00",
+    "ReportGuid": "12345678-1234-1234-1234-123456789012",
+    "ReportCulture": "fa-IR",
+    "ReportUnit": "Centimeters",
+    "ReportPage": {
+      "PaperSize": "Custom",
+      "PageWidth": 8,
+      "PageHeight": 21,
+      "Margins": {
+        "Left": 0.2,
+        "Right": 0.2,
+        "Top": 0.2,
+        "Bottom": 0.2
+      }
+    },
+    "ReportStyles": [
+      {
+        "Name": "HeaderStyle",
+        "Font": {
+          "Name": "Vazir",
+          "Size": 12,
+          "Bold": true
+        },
+        "TextColor": "Black",
+        "TextAlign": "Center"
+      },
+      {
+        "Name": "ContentStyle",
+        "Font": {
+          "Name": "Vazir",
+          "Size": 8
+        },
+        "TextColor": "Black"
+      },
+      {
+        "Name": "TableHeaderStyle",
+        "Font": {
+          "Name": "Vazir",
+          "Size": 7,
+          "Bold": true
+        },
+        "TextColor": "Black",
+        "TextAlign": "Center",
+        "Brush": {
+          "Type": "Solid",
+          "Color": "LightGray"
+        }
+      },
+      {
+        "Name": "TableContentStyle",
+        "Font": {
+          "Name": "Vazir",
+          "Size": 6
+        },
+        "TextColor": "Black"
+      }
+    ],
+    "ReportComponents": [
+      {
+        "Name": "HeaderText",
+        "Type": "Text",
+        "Left": 0,
+        "Top": 0.5,
+        "Width": 7.6,
+        "Height": 1,
+        "Text": "قهوه سمکو",
+        "Style": "HeaderStyle"
+      },
+      {
+        "Name": "SubHeaderText",
+        "Type": "Text",
+        "Left": 0,
+        "Top": 1.5,
+        "Width": 7.6,
+        "Height": 0.5,
+        "Text": "به بلندای کوه دماوند",
+        "Style": "ContentStyle",
+        "TextAlign": "Center"
+      },
+      {
+        "Name": "InvoiceInfo",
+        "Type": "Text",
+        "Left": 0,
+        "Top": 2.5,
+        "Width": 7.6,
+        "Height": 0.5,
+        "Text": "شماره فاکتور: {Sale.InvoiceNumber} | تاریخ: {Sale.SaleDate:yyyy/MM/dd}",
+        "Style": "ContentStyle"
+      },
+      {
+        "Name": "ItemsTable",
+        "Type": "Table",
+        "Left": 0,
+        "Top": 3.5,
+        "Width": 7.6,
+        "Height": 10,
+        "DataSource": "Sale.Items",
+        "Columns": [
+          {
+            "Name": "ProductName",
+            "HeaderText": "نام کالا",
+            "Width": 3,
+            "Style": "TableHeaderStyle"
+          },
+          {
+            "Name": "Quantity",
+            "HeaderText": "تعداد",
+            "Width": 1,
+            "Style": "TableHeaderStyle"
+          },
+          {
+            "Name": "UnitPrice",
+            "HeaderText": "قیمت واحد",
+            "Width": 1.5,
+            "Style": "TableHeaderStyle"
+          },
+          {
+            "Name": "TotalPrice",
+            "HeaderText": "جمع کل",
+            "Width": 2.1,
+            "Style": "TableHeaderStyle"
+          }
+        ]
+      },
+      {
+        "Name": "TotalAmount",
+        "Type": "Text",
+        "Left": 0,
+        "Top": 14,
+        "Width": 7.6,
+        "Height": 0.5,
+        "Text": "جمع کل: {Sale.TotalAmount:N0} ریال",
+        "Style": "ContentStyle",
+        "Borders": {
+          "Top": true,
+          "Bottom": true
+        }
+      },
+      {
+        "Name": "FinalAmount",
+        "Type": "Text",
+        "Left": 0,
+        "Top": 14.5,
+        "Width": 7.6,
+        "Height": 0.5,
+        "Text": "مبلغ فاکتور: {Sale.FinalAmount:N0} ریال",
+        "Style": "ContentStyle",
+        "TextColor": "Red"
+      },
+      {
+        "Name": "FalText",
+        "Type": "Text",
+        "Left": 0,
+        "Top": 15.5,
+        "Width": 7.6,
+        "Height": 1,
+        "Text": "به نام خداوند جان و خرد\nکزین برتر اندیشه برنگذرد",
+        "Style": "ContentStyle",
+        "TextAlign": "Center"
+      }
+    ]
+  }
+} 

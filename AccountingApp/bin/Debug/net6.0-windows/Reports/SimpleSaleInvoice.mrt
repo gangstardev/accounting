@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StiSerializer version="1.02" application="Stimulsoft.Report.Win" type="Net" framework=".NET 6.0">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="0" />
+    <DataSources isList="true" count="0" />
+    <Relations isList="true" count="0" />
+    <ReportAliases isList="true" count="0" />
+    <ReportCacheMode>Off</ReportCacheMode>
+    <ReportCulture>fa-IR</ReportCulture>
+    <ReportUnit>Centimeters</ReportUnit>
+    <ReportVersion>2025.3.1</ReportVersion>
+    <ScriptLanguage>CSharp</ScriptLanguage>
+    <UseAliases>false</UseAliases>
+    <UseBindings>false</UseBindings>
+    <UseDataSources>false</UseDataSources>
+    <UseGlobalizationManager>false</UseGlobalizationManager>
+    <UseParentStyles>false</UseParentStyles>
+    <UseStyles>false</UseStyles>
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="2" type="Page" isKey="true">
+      <Brush>Solid</Brush>
+      <Components isList="true" count="1">
+        <Text1 Ref="3" type="Text" isKey="true">
+          <Brush>Solid</Brush>
+          <CanGrow>true</CanGrow>
+          <CanShrink>true</CanShrink>
+          <Font>Arial, 12pt, style=Bold</Font>
+          <Foreground>Black</Foreground>
+          <Height>1</Height>
+          <Left>1</Left>
+          <Name>TestText</Name>
+          <Page>Page1</Page>
+          <Parent>Page1</Parent>
+          <Text>فاکتور شماره: {InvoiceNumber}</Text>
+          <TextBrush>Solid</TextBrush>
+          <TextOptions>RightToLeft</TextOptions>
+          <Top>1</Top>
+          <Width>19</Width>
+        </Text1>
+      </Components>
+      <Height>29.7</Height>
+      <Left>0</Left>
+      <Name>Page1</Name>
+      <Orientation>Portrait</Orientation>
+      <PaperSize>A4</PaperSize>
+      <Top>0</Top>
+      <Width>21</Width>
+    </Page1>
+  </Pages>
+  <ReportAlias>فاکتور ساده</ReportAlias>
+  <ReportAuthor />
+  <ReportChanged>2025-01-27T10:00:00</ReportChanged>
+  <ReportCreated>2025-01-27T10:00:00</ReportCreated>
+  <ReportDescription />
+  <ReportImage />
+  <ReportName>SimpleSaleInvoice</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2025.3.1</ReportVersion>
+  <Script />
+  <Styles isList="true" count="0" />
+  <Units>Centimeters</Units>
+</StiSerializer> 

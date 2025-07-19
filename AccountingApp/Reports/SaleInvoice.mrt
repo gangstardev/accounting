@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StiSerializer version="1.02" application="Stimulsoft.Report.Win" type="Net" framework=".NET 8.0">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="0" />
+    <DataSources isList="true" count="0" />
+    <Relations isList="true" count="0" />
+    <ReportAliases isList="true" count="0" />
+    <ReportCacheMode>Off</ReportCacheMode>
+    <ReportCulture>fa-IR</ReportCulture>
+    <ReportUnit>Centimeters</ReportUnit>
+    <ReportVersion>2025.3.1</ReportVersion>
+    <ScriptLanguage>CSharp</ScriptLanguage>
+    <UseAliases>false</UseAliases>
+    <UseBindings>false</UseBindings>
+    <UseDataSources>false</UseDataSources>
+    <UseGlobalizationManager>false</UseGlobalizationManager>
+    <UseParentStyles>false</UseParentStyles>
+    <UseStyles>false</UseStyles>
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="2" type="Page" isKey="true">
+      <Brush>Solid</Brush>
+      <Components isList="true" count="8">
+        <HeaderBand1 Ref="3" type="HeaderBand" isKey="true">
+          <Brush>Solid</Brush>
+          <CanGrow>true</CanGrow>
+          <CanShrink>true</CanShrink>
+          <Components isList="true" count="2">
+            <Text1 Ref="4" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 14pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.8</Height>
+              <Left>0</Left>
+              <Name>CompanyTitle</Name>
+              <Page>Page1</Page>
+              <Parent>HeaderBand1</Parent>
+              <Text>قهوه سمکو</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.2</Top>
+              <Width>21</Width>
+            </Text1>
+            <Text2 Ref="5" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 10pt</Font>
+              <Foreground>Gray</Foreground>
+              <Height>0.5</Height>
+              <Left>0</Left>
+              <Name>CompanySubtitle</Name>
+              <Page>Page1</Page>
+              <Parent>HeaderBand1</Parent>
+              <Text>به بلندای کوه دماوند</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>1</Top>
+              <Width>21</Width>
+            </Text2>
+          </Components>
+          <Height>2</Height>
+          <Left>0</Left>
+          <Name>HeaderBand1</Name>
+          <Page>Page1</Page>
+          <Parent>Page1</Parent>
+          <Top>0</Top>
+          <Width>21</Width>
+        </HeaderBand1>
+        <DataBand1 Ref="6" type="DataBand" isKey="true">
+          <Brush>Solid</Brush>
+          <CanGrow>true</CanGrow>
+          <CanShrink>true</CanShrink>
+          <Components isList="true" count="4">
+            <Text3 Ref="7" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>0</Left>
+              <Name>InvoiceNumberLabel</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand1</Parent>
+              <Text>شماره فاکتور:</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.2</Top>
+              <Width>3</Width>
+            </Text3>
+            <Text4 Ref="8" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>3</Left>
+              <Name>InvoiceNumberValue</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand1</Parent>
+              <Text>{InvoiceNumber}</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.2</Top>
+              <Width>4</Width>
+            </Text4>
+            <Text5 Ref="9" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>0</Left>
+              <Name>SaleDateLabel</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand1</Parent>
+              <Text>تاریخ فروش:</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.7</Top>
+              <Width>3</Width>
+            </Text5>
+            <Text6 Ref="10" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>3</Left>
+              <Name>SaleDateValue</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand1</Parent>
+              <Text>{SaleDate}</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.7</Top>
+              <Width>4</Width>
+            </Text6>
+          </Components>
+          <Height>1.5</Height>
+          <Left>0</Left>
+          <Name>DataBand1</Name>
+          <Page>Page1</Page>
+          <Parent>Page1</Parent>
+          <Top>2</Top>
+          <Width>21</Width>
+        </DataBand1>
+        <DataBand2 Ref="11" type="DataBand" isKey="true">
+          <Brush>Solid</Brush>
+          <CanGrow>true</CanGrow>
+          <CanShrink>true</CanShrink>
+          <Components isList="true" count="4">
+            <Text7 Ref="12" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 11pt, style=Bold</Font>
+              <Foreground>DarkGreen</Foreground>
+              <Height>0.5</Height>
+              <Left>0</Left>
+              <Name>CustomerTitle</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand2</Parent>
+              <Text>اطلاعات مشتری</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.2</Top>
+              <Width>21</Width>
+            </Text7>
+            <Text8 Ref="13" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>0</Left>
+              <Name>CustomerNameLabel</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand2</Parent>
+              <Text>نام مشتری:</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.8</Top>
+              <Width>3</Width>
+            </Text8>
+            <Text9 Ref="14" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>3</Left>
+              <Name>CustomerNameValue</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand2</Parent>
+              <Text>{CustomerName}</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.8</Top>
+              <Width>4</Width>
+            </Text9>
+            <Text10 Ref="15" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>0</Left>
+              <Name>CustomerPhoneLabel</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand2</Parent>
+              <Text>تلفن:</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>1.3</Top>
+              <Width>3</Width>
+            </Text10>
+            <Text11 Ref="16" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>3</Left>
+              <Name>CustomerPhoneValue</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand2</Parent>
+              <Text>{CustomerPhone}</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>1.3</Top>
+              <Width>4</Width>
+            </Text11>
+          </Components>
+          <Height>1.5</Height>
+          <Left>0</Left>
+          <Name>DataBand2</Name>
+          <Page>Page1</Page>
+          <Parent>Page1</Parent>
+          <Top>3.5</Top>
+          <Width>21</Width>
+        </DataBand2>
+        <DataBand3 Ref="17" type="DataBand" isKey="true">
+          <Brush>Solid</Brush>
+          <CanGrow>true</CanGrow>
+          <CanShrink>true</CanShrink>
+          <Components isList="true" count="4">
+            <Text12 Ref="18" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 11pt, style=Bold</Font>
+              <Foreground>DarkGreen</Foreground>
+              <Height>0.5</Height>
+              <Left>0</Left>
+              <Name>ItemsTitle</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand3</Parent>
+              <Text>آیتم‌های فاکتور</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.2</Top>
+              <Width>21</Width>
+            </Text12>
+            <Text13 Ref="19" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 8pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.6</Height>
+              <Left>0</Left>
+              <Name>ProductNameHeader</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand3</Parent>
+              <Text>نام محصول</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.8</Top>
+              <Width>4</Width>
+            </Text13>
+            <Text14 Ref="20" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 8pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.6</Height>
+              <Left>4</Left>
+              <Name>QuantityHeader</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand3</Parent>
+              <Text>تعداد</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.8</Top>
+              <Width>1.5</Width>
+            </Text14>
+            <Text15 Ref="21" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 8pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.6</Height>
+              <Left>5.5</Left>
+              <Name>UnitPriceHeader</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand3</Parent>
+              <Text>قیمت واحد</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.8</Top>
+              <Width>2</Width>
+            </Text15>
+            <Text16 Ref="22" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 8pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.6</Height>
+              <Left>7.5</Left>
+              <Name>TotalPriceHeader</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand3</Parent>
+              <Text>قیمت کل</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.8</Top>
+              <Width>2</Width>
+            </Text16>
+          </Components>
+          <Height>1.5</Height>
+          <Left>0</Left>
+          <Name>DataBand3</Name>
+          <Page>Page1</Page>
+          <Parent>Page1</Parent>
+          <Top>5</Top>
+          <Width>21</Width>
+        </DataBand3>
+        <DataBand4 Ref="23" type="DataBand" isKey="true">
+          <Brush>Solid</Brush>
+          <CanGrow>true</CanGrow>
+          <CanShrink>true</CanShrink>
+          <Components isList="true" count="4">
+            <Text17 Ref="24" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 8pt</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.6</Height>
+              <Left>0</Left>
+              <Name>ProductName</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand4</Parent>
+              <Text>{ProductName}</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.1</Top>
+              <Width>4</Width>
+            </Text17>
+            <Text18 Ref="25" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 8pt</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.6</Height>
+              <Left>4</Left>
+              <Name>Quantity</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand4</Parent>
+              <Text>{Quantity}</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.1</Top>
+              <Width>1.5</Width>
+            </Text18>
+            <Text19 Ref="26" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 8pt</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.6</Height>
+              <Left>5.5</Left>
+              <Name>UnitPrice</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand4</Parent>
+              <Text>{UnitPrice}</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.1</Top>
+              <Width>2</Width>
+            </Text19>
+            <Text20 Ref="27" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 8pt</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.6</Height>
+              <Left>7.5</Left>
+              <Name>TotalPrice</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand4</Parent>
+              <Text>{TotalPrice}</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.1</Top>
+              <Width>2</Width>
+            </Text20>
+          </Components>
+          <Height>0.8</Height>
+          <Left>0</Left>
+          <Name>DataBand4</Name>
+          <Page>Page1</Page>
+          <Parent>Page1</Parent>
+          <Top>6.5</Top>
+          <Width>21</Width>
+        </DataBand4>
+        <DataBand5 Ref="28" type="DataBand" isKey="true">
+          <Brush>Solid</Brush>
+          <CanGrow>true</CanGrow>
+          <CanShrink>true</CanShrink>
+          <Components isList="true" count="4">
+            <Text21 Ref="29" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>0</Left>
+              <Name>TotalLabel</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand5</Parent>
+              <Text>جمع کل:</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.2</Top>
+              <Width>3</Width>
+            </Text21>
+            <Text22 Ref="30" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>3</Left>
+              <Name>TotalValue</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand5</Parent>
+              <Text>{TotalAmount}</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.2</Top>
+              <Width>4</Width>
+            </Text22>
+            <Text23 Ref="31" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt, style=Bold</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>0</Left>
+              <Name>FinalLabel</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand5</Parent>
+              <Text>مبلغ فاکتور:</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.7</Top>
+              <Width>3</Width>
+            </Text23>
+            <Text24 Ref="32" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 9pt, style=Bold</Font>
+              <Foreground>Red</Foreground>
+              <Height>0.4</Height>
+              <Left>3</Left>
+              <Name>FinalValue</Name>
+              <Page>Page1</Page>
+              <Parent>DataBand5</Parent>
+              <Text>{FinalAmount}</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.7</Top>
+              <Width>4</Width>
+            </Text24>
+          </Components>
+          <Height>1.5</Height>
+          <Left>0</Left>
+          <Name>DataBand5</Name>
+          <Page>Page1</Page>
+          <Parent>Page1</Parent>
+          <Top>7.3</Top>
+          <Width>21</Width>
+        </DataBand5>
+        <FooterBand1 Ref="33" type="FooterBand" isKey="true">
+          <Brush>Solid</Brush>
+          <CanGrow>true</CanGrow>
+          <CanShrink>true</CanShrink>
+          <Components isList="true" count="2">
+            <Text25 Ref="34" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 8pt</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>0</Left>
+              <Name>FooterText</Name>
+              <Page>Page1</Page>
+              <Parent>FooterBand1</Parent>
+              <Text>به نام خداوند جان و خرد</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.2</Top>
+              <Width>21</Width>
+            </Text25>
+            <Text26 Ref="35" type="Text" isKey="true">
+              <Brush>Solid</Brush>
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <Font>Vazir, 8pt</Font>
+              <Foreground>Black</Foreground>
+              <Height>0.4</Height>
+              <Left>0</Left>
+              <Name>FooterText2</Name>
+              <Page>Page1</Page>
+              <Parent>FooterBand1</Parent>
+              <Text>کزین برتر اندیشه برنگذرد</Text>
+              <TextBrush>Solid</TextBrush>
+              <TextOptions>RightToLeft</TextOptions>
+              <Top>0.7</Top>
+              <Width>21</Width>
+            </Text26>
+          </Components>
+          <Height>1.5</Height>
+          <Left>0</Left>
+          <Name>FooterBand1</Name>
+          <Page>Page1</Page>
+          <Parent>Page1</Parent>
+          <Top>8.8</Top>
+          <Width>21</Width>
+        </FooterBand1>
+      </Components>
+      <Height>29.7</Height>
+      <Left>0</Left>
+      <Name>Page1</Name>
+      <Orientation>Portrait</Orientation>
+      <PaperSize>A4</PaperSize>
+      <Top>0</Top>
+      <Width>21</Width>
+    </Page1>
+  </Pages>
+  <ReportAlias>فاکتور فروش</ReportAlias>
+  <ReportAuthor />
+  <ReportChanged>2025-01-27T10:00:00</ReportChanged>
+  <ReportCreated>2025-01-27T10:00:00</ReportCreated>
+  <ReportDescription />
+  <ReportImage />
+  <ReportName>SaleInvoice</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2025.3.1</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using Stimulsoft.Report.Components;
+using Stimulsoft.Report;
+
+namespace Reports
+{
+    public class SaleInvoice : Stimulsoft.Report.StiReport
+    {
+        public SaleInvoice()
+        {
+            this.InitializeComponent();
+        }
+    }
+}</Script>
+  <Styles isList="true" count="0" />
+  <Units>Centimeters</Units>
+</StiSerializer> 

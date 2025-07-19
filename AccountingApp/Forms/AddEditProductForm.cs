@@ -345,8 +345,7 @@ namespace AccountingApp.Forms
                 MessageBox.Show("لطفاً واحد محصول را انتخاب کنید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 _cmbUnit.Focus();
                 return false;
-            }
-
+            }   
             return true;
         }
     }

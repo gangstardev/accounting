@@ -360,7 +360,8 @@ namespace AccountingApp.Forms
         {
             try
             {
-                var printForm = new PrintSaleInvoiceForm(sale);
+                // استفاده از فرم WebBrowser برای نمایش PDF
+                var printForm = new WebBrowserInvoiceForm(sale);
                 printForm.ShowDialog();
             }
             catch (Exception ex)
