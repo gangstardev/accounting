@@ -17,7 +17,7 @@ namespace AccountingApp.Repositories
         public List<Supplier> GetAll()
         {
             using var connection = _databaseManager.GetConnection();
-            // رفع مشکل: اضافه کردن فیلتر IsActive
+
             var suppliers = connection.Query<Supplier>("SELECT * FROM Suppliers WHERE IsActive = 1 ORDER BY Name").ToList();
             return suppliers ?? new List<Supplier>();
         }

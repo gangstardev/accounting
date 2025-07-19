@@ -14,7 +14,7 @@ namespace AccountingApp.Models
         public int StockQuantity { get; set; }
         public int MinStockLevel { get; set; } = 10;
         public string Unit { get; set; } = string.Empty;
-        public decimal Weight { get; set; } = 0; // وزن به گرم
+        public decimal Weight { get; set; } = 0;
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool IsActive { get; set; } = true;

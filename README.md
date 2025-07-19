@@ -1,109 +1,153 @@
-# سیستم حسابداری
+# AccountingApp
 
-یک برنامه حسابداری کامل با استفاده از C# + WinForms، SQLite و RDLC Reports
+A comprehensive accounting application built with C# and .NET 6, featuring modern UI design and robust functionality for managing business finances.
 
-## ویژگی‌ها
+## 🌟 Features
 
-### مدیریت حساب‌ها
-- افزودن، ویرایش و حذف حساب‌های مالی
-- دسته‌بندی حساب‌ها (دارایی، بدهی، سرمایه، درآمد، هزینه)
-- نمایش موجودی حساب‌ها
+### 📊 **Invoice Management**
+- Create and manage professional invoices
+- Multiple invoice formats (PDF, HTML, Direct Print)
+- Custom paper sizes (80mm thermal printer support)
+- Persian date formatting
+- Random Hafez fortune quotes on invoices
 
-### مدیریت تراکنش‌ها
-- ثبت تراکنش‌های مالی (بدهکار/بستانکار)
-- فیلتر تراکنش‌ها بر اساس تاریخ و حساب
-- نمایش جزئیات تراکنش‌ها
+### 👥 **Customer Management**
+- Complete customer database
+- Contact information tracking
+- Customer history and analytics
+- Search and filter capabilities
 
-### گزارشات
-- گزارش ترازنامه
-- گزارش سود و زیان
-- گزارش دفتر کل
-- نمایش گزارشات در DataGridView
+### 💰 **Sales Tracking**
+- Sales recording and management
+- Product/service catalog
+- Price management
+- Sales reports and analytics
 
-### ویژگی‌های فنی
-- رابط کاربری فارسی و راست‌چین
-- پایگاه داده SQLite
-- استفاده از Dapper برای ORM
-- معماری Repository Pattern
+### 🏢 **Supplier Management**
+- Supplier database
+- Contact and payment information
+- Supplier performance tracking
 
-## پیش‌نیازها
+### 🖨️ **Advanced Printing**
+- **Direct Printing**: Bypass PDF generation for faster printing
+- **Custom Paper Sizes**: Support for 80mm thermal printers
+- **Multiple Formats**: PDF, HTML, and direct print options
+- **Persian Calendar**: Full Persian date support
+- **Hafez Fortune**: Random Persian poetry quotes on invoices
 
-- .NET 6.0 یا بالاتر
-- Visual Studio 2022 یا Visual Studio Code
-- SQLite
+## 🚀 Getting Started
 
-## نصب و راه‌اندازی
+### Prerequisites
+- .NET 6.0 or later
+- Windows 10/11
+- SQLite (included)
 
-1. کلون کردن پروژه:
+### Installation
+1. Clone the repository
 ```bash
-git clone [repository-url]
-cd accounting
+git clone https://github.com/yourusername/AccountingApp.git
 ```
 
-2. باز کردن فایل `AccountingApp.sln` در Visual Studio
-
-3. بازگردانی پکیج‌های NuGet:
+2. Navigate to the project directory
 ```bash
-dotnet restore
+cd AccountingApp
 ```
 
-4. اجرای برنامه:
+3. Build the application
+```bash
+dotnet build
+```
+
+4. Run the application
 ```bash
 dotnet run
 ```
 
-## ساختار پروژه
+## 📁 Project Structure
 
 ```
 AccountingApp/
-├── Models/                 # مدل‌های داده
-│   ├── Account.cs
-│   └── Transaction.cs
-├── Database/              # مدیریت پایگاه داده
-│   └── DatabaseManager.cs
-├── Repositories/          # لایه دسترسی به داده
-│   ├── AccountRepository.cs
-│   └── TransactionRepository.cs
-├── Forms/                 # فرم‌های برنامه
-│   ├── MainForm.cs
-│   ├── AccountsForm.cs
-│   ├── AddAccountForm.cs
-│   ├── EditAccountForm.cs
-│   ├── AddTransactionForm.cs
-│   ├── TransactionsForm.cs
-│   ├── BalanceSheetReportForm.cs
-│   ├── IncomeStatementReportForm.cs
-│   └── GeneralLedgerReportForm.cs
-├── Reports/               # پوشه گزارشات (آماده برای فایل‌های RDLC)
-└── Program.cs            # نقطه شروع برنامه
+├── Forms/                     # Windows Forms
+│   ├── MainForm.cs           # Main application window
+│   ├── InvoiceViewerForm.cs  # Invoice display and printing
+│   ├── PdfViewerForm.cs      # PDF viewer and printing
+│   ├── WebBrowserInvoiceForm.cs # HTML invoice viewer
+│   └── ...                   # Other form files
+├── Models/                    # Data models
+│   ├── Customer.cs           # Customer entity
+│   ├── Sale.cs               # Sale entity
+│   ├── Supplier.cs           # Supplier entity
+│   └── FalItem.cs            # Hafez fortune model
+├── Resources/                 # Application resources
+│   └── hafez_fal.json        # Persian fortune quotes
+└── Database/                  # SQLite database files
 ```
 
-## استفاده از برنامه
+## 🎨 Key Features in Detail
 
-### شروع کار
-1. اجرای برنامه
-2. سیستم به طور خودکار حساب‌های پیش‌فرض را ایجاد می‌کند
-3. می‌توانید حساب‌های جدید اضافه کنید
+### **Smart Invoice Printing**
+- **Direct Print**: Uses `PrintDocument` for immediate printing without PDF generation
+- **Custom Paper Size**: 80mm width with flexible length (up to 300mm)
+- **Persian Typography**: Full RTL support with Vazir font
+- **Random Fortune**: Each invoice includes a random Hafez quote
 
-### ثبت تراکنش
-1. از منوی "تراکنش‌ها" گزینه "ثبت تراکنش جدید" را انتخاب کنید
-2. اطلاعات تراکنش را وارد کنید
-3. نوع تراکنش (بدهکار/بستانکار) را انتخاب کنید
-4. حساب مربوطه را انتخاب کنید
+### **Modern UI Design**
+- Clean and intuitive interface
+- Responsive design
+- Professional color scheme
+- Easy navigation
 
-### مشاهده گزارشات
-1. از منوی "گزارشات" گزارش مورد نظر را انتخاب کنید
-2. گزارشات به صورت PDF قابل چاپ هستند
+### **Data Management**
+- SQLite database for reliable data storage
+- Backup and restore functionality
+- Data export capabilities
+- Search and filter options
 
-## پکیج‌های استفاده شده
+## 🔧 Technical Details
 
-- `System.Data.SQLite`: برای کار با پایگاه داده SQLite
-- `Dapper`: برای ORM و دسترسی به داده
+### **Technologies Used**
+- **.NET 6**: Modern C# framework
+- **Windows Forms**: Desktop UI framework
+- **SQLite**: Lightweight database
+- **QuestPDF**: PDF generation library
+- **System.Drawing.Printing**: Direct printing functionality
 
-## مجوز
+### **Key Libraries**
+```xml
+<PackageReference Include="QuestPDF" Version="2023.12.6" />
+<PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+<PackageReference Include="PdfiumViewer" Version="2.13.0" />
+```
 
-این پروژه تحت مجوز MIT منتشر شده است.
+## 📸 Screenshots
 
-## پشتیبانی
+*[Screenshots will be added here]*
 
-برای گزارش مشکلات یا پیشنهادات، لطفاً یک Issue ایجاد کنید. 
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Hafez Poetry**: Persian fortune quotes from Hafez's Divan
+- **Vazir Font**: Beautiful Persian typography
+- **QuestPDF**: Excellent PDF generation library
+- **SQLite**: Reliable database solution
+
+## 📞 Support
+
+
+
+---
+
+**Made with ❤️ for Persian businesses**
+
+*Built with modern C# and .NET 6 for optimal performance and reliability.* 
