@@ -186,6 +186,12 @@ namespace AccountingApp.Forms
         {
             try
             {
+                // تست تبدیل تاریخ
+                var testDate = DateTime.Now;
+                var persianTestDate = PersianDateConverter.ConvertToPersianDate(testDate);
+                Console.WriteLine($"تست تاریخ میلادی: {testDate}");
+                Console.WriteLine($"تست تاریخ شمسی: {persianTestDate}");
+                
                 var today = DateTime.Today;
                 var todaySales = _saleRepository.GetTotalSales(today, today);
                 var todayPurchases = _purchaseRepository.GetTotalPurchases(today, today);

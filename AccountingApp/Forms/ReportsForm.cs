@@ -283,7 +283,7 @@ namespace AccountingApp.Forms
                 foreach (var sale in sales)
                 {
                     _dgvSalesReport.Rows.Add(
-                        sale.SaleDate.ToString("yyyy/MM/dd"),
+                        PersianDateConverter.ConvertToPersianDate(sale.SaleDate),
                         sale.InvoiceNumber,
                         sale.Customer.Name,
                         sale.Items.Count,
@@ -326,7 +326,7 @@ namespace AccountingApp.Forms
                 foreach (var purchase in purchases)
                 {
                     _dgvPurchaseReport.Rows.Add(
-                        purchase.PurchaseDate.ToString("yyyy/MM/dd"),
+                        PersianDateConverter.ConvertToPersianDate(purchase.PurchaseDate),
                         purchase.InvoiceNumber,
                         purchase.Supplier.Name,
                         purchase.Items.Count,

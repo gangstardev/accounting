@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using AccountingApp.Models;
 using AccountingApp.Repositories;
 
+
 namespace AccountingApp.Forms
 {
     public partial class SalesForm : Form
@@ -13,8 +14,8 @@ namespace AccountingApp.Forms
         private readonly CustomerRepository _customerRepository;
         private readonly ProductRepository _productRepository;
         private DataGridView? _dataGridView;
-        private DateTimePicker? _dtpStartDate;
-        private DateTimePicker? _dtpEndDate;
+        private PersianDateTimePicker? _dtpStartDate;
+        private PersianDateTimePicker? _dtpEndDate;
         private ComboBox? _cmbCustomerFilter;
         private List<Sale>? _sales;
 
@@ -59,20 +60,18 @@ namespace AccountingApp.Forms
             };
 
             var lblStartDate = new Label { Text = "از تاریخ:", Location = new System.Drawing.Point(10, 25), AutoSize = true };
-            _dtpStartDate = new DateTimePicker 
+            _dtpStartDate = new PersianDateTimePicker 
             { 
                 Location = new System.Drawing.Point(80, 22), 
-                Size = new System.Drawing.Size(120, 25),
-                Format = DateTimePickerFormat.Short
+                Size = new System.Drawing.Size(130, 25)
             };
             _dtpStartDate.ValueChanged += Filter_Changed;
 
             var lblEndDate = new Label { Text = "تا تاریخ:", Location = new System.Drawing.Point(220, 25), AutoSize = true };
-            _dtpEndDate = new DateTimePicker 
+            _dtpEndDate = new PersianDateTimePicker 
             { 
                 Location = new System.Drawing.Point(290, 22), 
-                Size = new System.Drawing.Size(120, 25),
-                Format = DateTimePickerFormat.Short
+                Size = new System.Drawing.Size(120, 25)
             };
             _dtpEndDate.ValueChanged += Filter_Changed;
 
@@ -217,13 +216,19 @@ namespace AccountingApp.Forms
                 
             _dataGridView.Rows.Clear();
 
+
+
             foreach (var sale in _sales ?? new List<Sale>())
             {
+                var persianDate = PersianDateConverter.ConvertToPersianDate(sale.SaleDate);
+                Console.WriteLine($"تاریخ فروش میلادی: {sale.SaleDate}");
+                Console.WriteLine($"تاریخ فروش شمسی: {persianDate}");
+                
                 _dataGridView.Rows.Add(
                     sale.Id,
                     sale.InvoiceNumber,
                     sale.Customer.Name,
-                    sale.SaleDate.ToString("yyyy/MM/dd"),
+                    persianDate,
                     sale.TotalAmount.ToString("N0"),
                     sale.DiscountAmount.ToString("N0"),
                     sale.TaxAmount.ToString("N0"),

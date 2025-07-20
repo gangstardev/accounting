@@ -17,7 +17,7 @@ namespace AccountingApp.Forms
 
         private TextBox? _txtInvoiceNumber;
         private ComboBox? _cmbCustomer;
-        private DateTimePicker? _dtpSaleDate;
+        private PersianDateTimePicker? _dtpSaleDate;
         private DataGridView? _dgvItems;
         private NumericUpDown? _numDiscountAmount;
         private NumericUpDown? _numTaxAmount;
@@ -102,7 +102,7 @@ namespace AccountingApp.Forms
 
             // تاریخ فروش
             var lblSaleDate = new Label { Text = "تاریخ فروش:", TextAlign = ContentAlignment.MiddleRight };
-            _dtpSaleDate = new DateTimePicker { Font = new System.Drawing.Font("Tahoma", 10), Height = 25, Format = DateTimePickerFormat.Short };
+            _dtpSaleDate = new PersianDateTimePicker { Font = new System.Drawing.Font("Tahoma", 10), Height = 25 };
             headerLayout.Controls.Add(lblSaleDate, 0, 1);
             headerLayout.Controls.Add(_dtpSaleDate, 1, 1);
 

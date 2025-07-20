@@ -178,7 +178,7 @@ namespace AccountingApp.Forms
                 foreach (dynamic item in sortedHistory)
                 {
                     _dgvHistory.Rows.Add(
-                        item.Date.ToString("yyyy/MM/dd"),
+                        PersianDateConverter.ConvertToPersianDate(item.Date),
                         item.Type,
                         item.InvoiceNumber,
                         item.CustomerName,

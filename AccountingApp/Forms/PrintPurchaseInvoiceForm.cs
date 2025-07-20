@@ -167,7 +167,7 @@ namespace AccountingApp.Forms
                 lblInvoiceNumberValue!.Text = _purchase.InvoiceNumber;
 
                 var lblPurchaseDateValue = this.Controls.Find("lblPurchaseDateValue", true)[0] as Label;
-                lblPurchaseDateValue!.Text = _purchase.PurchaseDate.ToString("yyyy/MM/dd");
+                lblPurchaseDateValue!.Text = PersianDateConverter.ConvertToPersianDate(_purchase.PurchaseDate);
 
                 // اطلاعات تامین‌کننده
                 var lblSupplierNameValue = this.Controls.Find("lblSupplierNameValue", true)[0] as Label;

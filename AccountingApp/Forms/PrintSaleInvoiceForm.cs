@@ -79,7 +79,7 @@ namespace AccountingApp.Forms
                     
                     // تنظیم متغیرهای جداگانه برای دسترسی آسان‌تر
                     report["InvoiceNumber"] = _sale.InvoiceNumber;
-                    report["SaleDate"] = _sale.SaleDate.ToString("yyyy/MM/dd");
+                    report["SaleDate"] = PersianDateConverter.ConvertToPersianDate(_sale.SaleDate);
                     report["CustomerName"] = _sale.Customer?.Name ?? "";
                     report["CustomerPhone"] = _sale.Customer?.Phone ?? "";
                     report["TotalAmount"] = _sale.TotalAmount;

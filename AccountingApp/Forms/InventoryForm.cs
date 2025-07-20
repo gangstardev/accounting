@@ -256,8 +256,8 @@ _dataGridView.Columns.AddRange(new DataGridViewColumn[]
                     product.CostPrice.ToString("N0"),
                     product.Price.ToString("N0"),
                     totalCost.ToString("N0"),
-                    lastPurchaseDate?.ToString("yyyy/MM/dd") ?? "-",
-                    lastSaleDate?.ToString("yyyy/MM/dd") ?? "-"
+                    lastPurchaseDate.HasValue ? PersianDateConverter.ConvertToPersianDate(lastPurchaseDate.Value) : "-",
+                    lastSaleDate.HasValue ? PersianDateConverter.ConvertToPersianDate(lastSaleDate.Value) : "-"
                 );
 
                 // رنگ‌بندی بر اساس موجودی
