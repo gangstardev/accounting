@@ -275,13 +275,13 @@ namespace AccountingApp.Forms
                 column.Item().PaddingTop(10).Border(1).BorderColor(Colors.Grey.Lighten1).Padding(10).Row(row =>
                 {
                     row.RelativeItem().AlignRight().Text("جمع کل:").FontFamily("Vazir").FontSize(12).Bold();
-                    row.RelativeItem().AlignLeft().Text(_sale.TotalAmount.ToString("N0") + " ریال").FontFamily("Vazir").FontSize(12).Bold();
+                    row.RelativeItem().AlignLeft().Text(_sale.TotalAmount.ToString("N0") + " تومان").FontFamily("Vazir").FontSize(12).Bold();
                 });
 
                 column.Item().Row(row =>
                 {
                     row.RelativeItem().AlignRight().Text("مبلغ فاکتور:").FontFamily("Vazir").FontSize(12).Bold();
-                    row.RelativeItem().AlignLeft().Text(_sale.FinalAmount.ToString("N0") + " ریال").FontFamily("Vazir").FontSize(12).Bold().FontColor(Colors.Red.Medium);
+                    row.RelativeItem().AlignLeft().Text(_sale.FinalAmount.ToString("N0") + " تومان").FontFamily("Vazir").FontSize(12).Bold().FontColor(Colors.Red.Medium);
                 });
 
                 // فال حافظ

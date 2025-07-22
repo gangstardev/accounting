@@ -1,0 +1,2 @@
+# This file ensures that the obj directory is tracked by Git
+# The obj directory contains intermediate build files 

@@ -194,8 +194,8 @@ namespace AccountingApp.Forms
                     dataGridView.Rows.Add(
                         item.Product.Name,
                         item.Quantity.ToString(),
-                        item.UnitPrice.ToString("N0") + " ریال",
-                        item.TotalPrice.ToString("N0") + " ریال"
+                        item.UnitPrice.ToString("N0") + " تومان",
+                        item.TotalPrice.ToString("N0") + " تومان"
                     );
                 }
 
@@ -209,7 +209,7 @@ namespace AccountingApp.Forms
 
                 var lblTotal = new Label
                 {
-                    Text = $"جمع کل: {_sale.TotalAmount.ToString("N0")} ریال",
+                    Text = $"جمع کل: {_sale.TotalAmount.ToString("N0")} تومان",
                     Font = new Font("Vazir", 12, FontStyle.Bold),
                     Location = new Point(10, 10),
                     AutoSize = true
@@ -217,7 +217,7 @@ namespace AccountingApp.Forms
 
                 var lblFinal = new Label
                 {
-                    Text = $"مبلغ فاکتور: {_sale.FinalAmount.ToString("N0")} ریال",
+                    Text = $"مبلغ فاکتور: {_sale.FinalAmount.ToString("N0")} تومان",
                     Font = new Font("Vazir", 12, FontStyle.Bold),
                     ForeColor = Color.Red,
                     Location = new Point(10, 35),
@@ -458,9 +458,9 @@ namespace AccountingApp.Forms
                     }
 
                     y += 20;
-                    g.DrawString($"جمع کل: {_sale.TotalAmount:N0} ریال", font, Brushes.Black, 10, y);
+                    g.DrawString($"جمع کل: {_sale.TotalAmount:N0} تومان", font, Brushes.Black, 10, y);
                     y += 20;
-                    g.DrawString($"مبلغ نهایی: {_sale.FinalAmount:N0} ریال", new Font("Vazir", 12, FontStyle.Bold), Brushes.Red, 10, y);
+                    g.DrawString($"مبلغ نهایی: {_sale.FinalAmount:N0} تومان", new Font("Vazir", 12, FontStyle.Bold), Brushes.Red, 10, y);
                     y += 30;
 
                     // فال حافظ
@@ -665,13 +665,13 @@ namespace AccountingApp.Forms
                 column.Item().PaddingTop(2).Border(1).BorderColor(Colors.Grey.Lighten1).Padding(2).Row(row =>
                 {
                     row.RelativeItem().AlignRight().Text("جمع کل:").FontFamily("Vazir").FontSize(7).Bold();
-                    row.RelativeItem().AlignLeft().Text(_sale.TotalAmount.ToString("N0") + " ریال").FontFamily("Vazir").FontSize(7).Bold();
+                    row.RelativeItem().AlignLeft().Text(_sale.TotalAmount.ToString("N0") + " تومان").FontFamily("Vazir").FontSize(7).Bold();
                 });
 
                 column.Item().Row(row =>
                 {
                     row.RelativeItem().AlignRight().Text("مبلغ فاکتور:").FontFamily("Vazir").FontSize(7).Bold();
-                    row.RelativeItem().AlignLeft().Text(_sale.FinalAmount.ToString("N0") + " ریال").FontFamily("Vazir").FontSize(7).Bold().FontColor(Colors.Red.Medium);
+                    row.RelativeItem().AlignLeft().Text(_sale.FinalAmount.ToString("N0") + " تومان").FontFamily("Vazir").FontSize(7).Bold().FontColor(Colors.Red.Medium);
                 });
 
                 // فال حافظ

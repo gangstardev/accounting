@@ -135,7 +135,7 @@
         "Top": 14,
         "Width": 7.6,
         "Height": 0.5,
-        "Text": "جمع کل: {Sale.TotalAmount:N0} ریال",
+        "Text": "جمع کل: {Sale.TotalAmount:N0} تومان",
         "Style": "ContentStyle",
         "Borders": {
           "Top": true,
@@ -149,7 +149,7 @@
         "Top": 14.5,
         "Width": 7.6,
         "Height": 0.5,
-        "Text": "مبلغ فاکتور: {Sale.FinalAmount:N0} ریال",
+        "Text": "مبلغ فاکتور: {Sale.FinalAmount:N0} تومان",
         "Style": "ContentStyle",
         "TextColor": "Red"
       },

@@ -1,0 +1,33 @@
+# تنظیمات فایل‌های باینری
+*.exe binary
+*.dll binary
+*.pdb binary
+*.obj binary
+*.lib binary
+
+# فایل‌های متنی
+*.txt text
+*.md text
+*.json text
+*.xml text
+*.cs text
+*.csproj text
+*.sln text
+
+# فایل‌های گزارش
+*.mrt text
+
+# فایل‌های فونت
+*.ttf binary
+*.otf binary
+
+# فایل‌های تصویر
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.bmp binary
+
+# فایل‌های PDF
+*.pdf binary 

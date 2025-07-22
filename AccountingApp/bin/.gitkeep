@@ -1,0 +1,2 @@
+# This file ensures that the bin directory is tracked by Git
+# The bin directory contains the compiled application files 

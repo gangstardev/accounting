@@ -63,6 +63,22 @@ dotnet build
 dotnet run
 ```
 
+### 🚀 Quick Start (Using Pre-built Files)
+
+If you want to run the application without building it:
+
+1. Navigate to the build directory
+```bash
+cd AccountingApp/bin/Debug/net6.0-windows
+```
+
+2. Run the executable directly
+```bash
+./AccountingApp.exe
+```
+
+**Note**: The `bin/` and `obj/` directories are included in this repository for convenience, containing pre-built application files.
+
 ## 📁 Project Structure
 
 ```
@@ -80,7 +96,14 @@ AccountingApp/
 │   └── FalItem.cs            # Hafez fortune model
 ├── Resources/                 # Application resources
 │   └── hafez_fal.json        # Persian fortune quotes
-└── Database/                  # SQLite database files
+├── Database/                  # SQLite database files
+├── bin/                       # Compiled application files
+│   ├── Debug/net6.0-windows/ # Build output directory
+│   ├── AccountingApp.exe     # Main executable
+│   ├── AccountingApp.dll     # Main library
+│   └── README.md             # Build directory documentation
+└── obj/                       # Intermediate build files
+    └── README.md             # Object files documentation
 ```
 
 ## 🎨 Key Features in Detail
