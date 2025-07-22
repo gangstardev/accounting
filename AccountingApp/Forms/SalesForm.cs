@@ -216,13 +216,9 @@ namespace AccountingApp.Forms
                 
             _dataGridView.Rows.Clear();
 
-
-
             foreach (var sale in _sales ?? new List<Sale>())
             {
                 var persianDate = PersianDateConverter.ConvertToPersianDate(sale.SaleDate);
-                Console.WriteLine($"تاریخ فروش میلادی: {sale.SaleDate}");
-                Console.WriteLine($"تاریخ فروش شمسی: {persianDate}");
                 
                 _dataGridView.Rows.Add(
                     sale.Id,
@@ -233,7 +229,10 @@ namespace AccountingApp.Forms
                     sale.DiscountAmount.ToString("N0"),
                     sale.TaxAmount.ToString("N0"),
                     sale.FinalAmount.ToString("N0"),
-                    sale.Items.Count
+                    sale.Items.Count,
+                    "", // Edit button
+                    "", // Delete button
+                    ""  // Print button
                 );
             }
         }

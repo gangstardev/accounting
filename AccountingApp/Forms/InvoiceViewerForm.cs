@@ -124,7 +124,7 @@ namespace AccountingApp.Forms
                 var lblTitle = new Label
                 {
                     Text = "قهوه سمکو",
-                    Font = new Font("Vazir", 16, FontStyle.Bold),
+                    Font = new Font("Tahoma", 16, FontStyle.Bold),
                     ForeColor = Color.Black,
                     TextAlign = ContentAlignment.MiddleCenter,
                     Dock = DockStyle.Top,
@@ -134,7 +134,7 @@ namespace AccountingApp.Forms
                 var lblSubtitle = new Label
                 {
                     Text = "به بلندای کوه دماوند",
-                    Font = new Font("Vazir", 10),
+                    Font = new Font("Tahoma", 10),
                     ForeColor = Color.Gray,
                     TextAlign = ContentAlignment.MiddleCenter,
                     Dock = DockStyle.Top,
@@ -155,7 +155,7 @@ namespace AccountingApp.Forms
                 var lblInvoiceNumber = new Label
                 {
                     Text = $"شماره فاکتور: {_sale.InvoiceNumber}",
-                    Font = new Font("Vazir", 10, FontStyle.Bold),
+                    Font = new Font("Tahoma", 10, FontStyle.Bold),
                     Location = new Point(10, 10),
                     AutoSize = true
                 };
@@ -163,7 +163,7 @@ namespace AccountingApp.Forms
                 var lblDate = new Label
                 {
                     Text = $"تاریخ: {shamsiDate}",
-                    Font = new Font("Vazir", 10, FontStyle.Bold),
+                    Font = new Font("Tahoma", 10, FontStyle.Bold),
                     Location = new Point(10, 35),
                     AutoSize = true
                 };
@@ -212,7 +212,7 @@ namespace AccountingApp.Forms
                 var lblTotal = new Label
                 {
                     Text = $"جمع کل: {_sale.TotalAmount.ToString("N0")} تومان",
-                    Font = new Font("Vazir", 12, FontStyle.Bold),
+                    Font = new Font("Tahoma", 12, FontStyle.Bold),
                     Location = new Point(10, 10),
                     AutoSize = true
                 };
@@ -220,7 +220,7 @@ namespace AccountingApp.Forms
                 var lblDiscount = new Label
                 {
                     Text = $"تخفیف: {_sale.DiscountAmount.ToString("N0")} تومان",
-                    Font = new Font("Vazir", 12, FontStyle.Bold),
+                    Font = new Font("Tahoma", 12, FontStyle.Bold),
                     ForeColor = Color.Green,
                     Location = new Point(10, 35),
                     AutoSize = true
@@ -229,7 +229,7 @@ namespace AccountingApp.Forms
                 var lblFinal = new Label
                 {
                     Text = $"مبلغ فاکتور: {_sale.FinalAmount.ToString("N0")} تومان",
-                    Font = new Font("Vazir", 12, FontStyle.Bold),
+                    Font = new Font("Tahoma", 12, FontStyle.Bold),
                     ForeColor = Color.Red,
                     Location = new Point(10, 60),
                     AutoSize = true
@@ -261,7 +261,7 @@ namespace AccountingApp.Forms
                         var lblFal1 = new Label
                         {
                             Text = lines.Length >= 1 ? lines[0] : "به نام خداوند جان و خرد",
-                            Font = new Font("Vazir", 10),
+                            Font = new Font("Tahoma", 10),
                             ForeColor = Color.Black,
                             TextAlign = ContentAlignment.MiddleCenter,
                             Dock = DockStyle.Top,
@@ -271,7 +271,7 @@ namespace AccountingApp.Forms
                         var lblFal2 = new Label
                         {
                             Text = lines.Length >= 2 ? lines[1] : "کزین برتر اندیشه برنگذرد",
-                            Font = new Font("Vazir", 10),
+                            Font = new Font("Tahoma", 10),
                             ForeColor = Color.Black,
                             TextAlign = ContentAlignment.MiddleCenter,
                             Dock = DockStyle.Top,
@@ -287,7 +287,7 @@ namespace AccountingApp.Forms
                     var lblFal1 = new Label
                     {
                         Text = "به نام خداوند جان و خرد",
-                        Font = new Font("Vazir", 10),
+                        Font = new Font("Tahoma", 10),
                         ForeColor = Color.Black,
                         TextAlign = ContentAlignment.MiddleCenter,
                         Dock = DockStyle.Top,
@@ -297,7 +297,7 @@ namespace AccountingApp.Forms
                     var lblFal2 = new Label
                     {
                         Text = "کزین برتر اندیشه برنگذرد",
-                        Font = new Font("Vazir", 10),
+                        Font = new Font("Tahoma", 10),
                         ForeColor = Color.Black,
                         TextAlign = ContentAlignment.MiddleCenter,
                         Dock = DockStyle.Top,
@@ -425,10 +425,10 @@ namespace AccountingApp.Forms
                 {
                     float y = 10;
                     var g = ev.Graphics;
-                    var font = new Font("Vazir", 10);
+                    var font = new Font("Tahoma", 10);
 
                     // هدر شرکت
-                    g.DrawString("قهوه سمکو", new Font("Vazir", 14, FontStyle.Bold), Brushes.Black, 10, y);
+                    g.DrawString("قهوه سمکو", new Font("Tahoma", 14, FontStyle.Bold), Brushes.Black, 10, y);
                     y += 30;
                     g.DrawString("به بلندای کوه دماوند", font, Brushes.Black, 10, y);
                     y += 30;
@@ -480,7 +480,7 @@ namespace AccountingApp.Forms
                     var totalDiscount = itemsDiscount + _sale.DiscountAmount;
                     g.DrawString($"تخفیف کل: {totalDiscount:N0} تومان", font, Brushes.Green, 10, y);
                     y += 20;
-                    g.DrawString($"مبلغ نهایی: {_sale.FinalAmount:N0} تومان", new Font("Vazir", 12, FontStyle.Bold), Brushes.Red, 10, y);
+                    g.DrawString($"مبلغ نهایی: {_sale.FinalAmount:N0} تومان", new Font("Tahoma", 12, FontStyle.Bold), Brushes.Red, 10, y);
                     y += 30;
 
                     // فال حافظ
@@ -497,7 +497,7 @@ namespace AccountingApp.Forms
                                 var fal = falList[rnd.Next(falList.Count)];
                                 
                                 // نمایش عنوان فال
-                                g.DrawString($"فال حافظ - {fal.title}", new Font("Vazir", 8, FontStyle.Bold), Brushes.Black, 10, y);
+                                g.DrawString($"فال حافظ - {fal.title}", new Font("Tahoma", 8, FontStyle.Bold), Brushes.Black, 10, y);
                                 y += 15;
                                 
                                 // تقسیم متن فال به خطوط کوتاه‌تر

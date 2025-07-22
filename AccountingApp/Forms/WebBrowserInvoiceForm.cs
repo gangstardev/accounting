@@ -157,10 +157,10 @@ namespace AccountingApp.Forms
                 {
                     float y = 10;
                     var g = ev.Graphics;
-                    var font = new Font("Vazir", 10);
+                    var font = new Font("Tahoma", 10); // تغییر به Tahoma برای جلوگیری از خطا
 
                     // هدر شرکت
-                    g.DrawString("قهوه سمکو", new Font("Vazir", 14, FontStyle.Bold), Brushes.Black, 10, y);
+                    g.DrawString("قهوه سمکو", new Font("Tahoma", 14, FontStyle.Bold), Brushes.Black, 10, y);
                     y += 30;
                     g.DrawString("به بلندای کوه دماوند", font, Brushes.Black, 10, y);
                     y += 30;
@@ -212,7 +212,7 @@ namespace AccountingApp.Forms
                     var totalDiscount = itemsDiscount + _sale.DiscountAmount;
                     g.DrawString($"تخفیف کل: {totalDiscount:N0} تومان", font, Brushes.Green, 10, y);
                     y += 20;
-                    g.DrawString($"مبلغ نهایی: {_sale.FinalAmount:N0} تومان", new Font("Vazir", 12, FontStyle.Bold), Brushes.Red, 10, y);
+                    g.DrawString($"مبلغ نهایی: {_sale.FinalAmount:N0} تومان", new Font("Tahoma", 12, FontStyle.Bold), Brushes.Red, 10, y);
                     y += 30;
 
                     // فال حافظ
@@ -229,7 +229,7 @@ namespace AccountingApp.Forms
                                 var fal = falList[rnd.Next(falList.Count)];
                                 
                                 // نمایش عنوان فال
-                                g.DrawString($"فال حافظ - {fal.title}", new Font("Vazir", 8, FontStyle.Bold), Brushes.Black, 10, y);
+                                g.DrawString($"فال حافظ - {fal.title}", new Font("Tahoma", 8, FontStyle.Bold), Brushes.Black, 10, y);
                                 y += 15;
                                 
                                 // تقسیم متن فال به خطوط کوتاه‌تر
