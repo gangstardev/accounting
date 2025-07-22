@@ -187,22 +187,30 @@ namespace AccountingApp.Forms
 
                     // جدول کالاها
                     g.DrawString("نام کالا", font, Brushes.Black, 10, y);
-                    g.DrawString("تعداد", font, Brushes.Black, 120, y);
-                    g.DrawString("قیمت", font, Brushes.Black, 180, y);
-                    g.DrawString("جمع", font, Brushes.Black, 240, y);
+                    g.DrawString("تعداد", font, Brushes.Black, 100, y);
+                    g.DrawString("قیمت", font, Brushes.Black, 140, y);
+                    g.DrawString("تخفیف", font, Brushes.Black, 200, y);
+                    g.DrawString("جمع", font, Brushes.Black, 260, y);
                     y += 20;
 
                     foreach (var item in _sale.Items)
                     {
                         g.DrawString(item.Product.Name, font, Brushes.Black, 10, y);
-                        g.DrawString(item.Quantity.ToString(), font, Brushes.Black, 120, y);
-                        g.DrawString(item.UnitPrice.ToString("N0"), font, Brushes.Black, 180, y);
-                        g.DrawString(item.TotalPrice.ToString("N0"), font, Brushes.Black, 240, y);
+                        g.DrawString(item.Quantity.ToString(), font, Brushes.Black, 100, y);
+                        g.DrawString(item.UnitPrice.ToString("N0"), font, Brushes.Black, 140, y);
+                        g.DrawString(item.DiscountAmount.ToString("N0"), font, Brushes.Black, 200, y);
+                        g.DrawString(item.TotalPrice.ToString("N0"), font, Brushes.Black, 260, y);
                         y += 20;
                     }
 
                     y += 20;
                     g.DrawString($"جمع کل: {_sale.TotalAmount:N0} تومان", font, Brushes.Black, 10, y);
+                    y += 20;
+                    
+                    // محاسبه تخفیف کل
+                    var itemsDiscount = _sale.Items.Sum(item => item.DiscountAmount);
+                    var totalDiscount = itemsDiscount + _sale.DiscountAmount;
+                    g.DrawString($"تخفیف کل: {totalDiscount:N0} تومان", font, Brushes.Green, 10, y);
                     y += 20;
                     g.DrawString($"مبلغ نهایی: {_sale.FinalAmount:N0} تومان", new Font("Vazir", 12, FontStyle.Bold), Brushes.Red, 10, y);
                     y += 30;
@@ -386,6 +394,7 @@ namespace AccountingApp.Forms
                         columns.RelativeColumn(2.5f); // نام کالا
                         columns.RelativeColumn(0.8f); // تعداد
                         columns.RelativeColumn(1.2f); // قیمت واحد
+                        columns.RelativeColumn(1.2f); // تخفیف
                         columns.RelativeColumn(1.2f); // جمع کل
                     });
 
@@ -395,6 +404,7 @@ namespace AccountingApp.Forms
                         header.Cell().Background(Colors.Grey.Lighten2).Padding(1).AlignCenter().Text("نام کالا").FontFamily("Vazir").FontSize(6).Bold();
                         header.Cell().Background(Colors.Grey.Lighten2).Padding(1).AlignCenter().Text("تعداد").FontFamily("Vazir").FontSize(6).Bold();
                         header.Cell().Background(Colors.Grey.Lighten2).Padding(1).AlignCenter().Text("قیمت").FontFamily("Vazir").FontSize(6).Bold();
+                        header.Cell().Background(Colors.Grey.Lighten2).Padding(1).AlignCenter().Text("تخفیف").FontFamily("Vazir").FontSize(6).Bold();
                         header.Cell().Background(Colors.Grey.Lighten2).Padding(1).AlignCenter().Text("جمع").FontFamily("Vazir").FontSize(6).Bold();
                     });
 
@@ -404,15 +414,24 @@ namespace AccountingApp.Forms
                         table.Cell().Padding(1).AlignRight().Text(item.Product.Name).FontFamily("Vazir").FontSize(5);
                         table.Cell().Padding(1).AlignCenter().Text(item.Quantity.ToString()).FontFamily("Vazir").FontSize(5);
                         table.Cell().Padding(1).AlignCenter().Text(item.UnitPrice.ToString("N0")).FontFamily("Vazir").FontSize(5);
+                        table.Cell().Padding(1).AlignCenter().Text(item.DiscountAmount.ToString("N0")).FontFamily("Vazir").FontSize(5);
                         table.Cell().Padding(1).AlignCenter().Text(item.TotalPrice.ToString("N0")).FontFamily("Vazir").FontSize(5);
                     }
                 });
 
-                // جمع کل و مبلغ نهایی
+                // جمع کل، تخفیف و مبلغ نهایی
                 column.Item().PaddingTop(3).Border(0.5f).BorderColor(Colors.Grey.Lighten1).Padding(3).Row(row =>
                 {
                     row.RelativeItem().AlignRight().Text("جمع کل:").FontFamily("Vazir").FontSize(7).Bold();
                     row.RelativeItem().AlignLeft().Text(_sale.TotalAmount.ToString("N0") + " تومان").FontFamily("Vazir").FontSize(7).Bold();
+                });
+
+                column.Item().Row(row =>
+                {
+                    row.RelativeItem().AlignRight().Text("تخفیف کل:").FontFamily("Vazir").FontSize(7).Bold();
+                    var itemsDiscount = _sale.Items.Sum(item => item.DiscountAmount);
+                    var totalDiscount = itemsDiscount + _sale.DiscountAmount;
+                    row.RelativeItem().AlignLeft().Text(totalDiscount.ToString("N0") + " تومان").FontFamily("Vazir").FontSize(7).Bold().FontColor(Colors.Green.Medium);
                 });
 
                 column.Item().Row(row =>

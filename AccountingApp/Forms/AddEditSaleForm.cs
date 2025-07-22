@@ -23,6 +23,7 @@ namespace AccountingApp.Forms
         private NumericUpDown? _numTaxAmount;
         private TextBox? _txtNotes;
         private Label? _lblTotalAmount;
+        private Label? _lblDiscountAmount;
         private Label? _lblFinalAmount;
         private List<SaleItem> _saleItems;
 
@@ -207,10 +208,13 @@ namespace AccountingApp.Forms
             var lblTotalLabel = new Label { Text = "جمع کل:", Location = new System.Drawing.Point(10, 20), AutoSize = true, Font = new System.Drawing.Font("Tahoma", 12, System.Drawing.FontStyle.Bold) };
             _lblTotalAmount = new Label { Text = "0 تومان", Location = new System.Drawing.Point(100, 20), AutoSize = true, Font = new System.Drawing.Font("Tahoma", 12, System.Drawing.FontStyle.Bold), ForeColor = Color.Blue };
 
-            var lblFinalLabel = new Label { Text = "مبلغ نهایی:", Location = new System.Drawing.Point(200, 20), AutoSize = true, Font = new System.Drawing.Font("Tahoma", 12, System.Drawing.FontStyle.Bold) };
-            _lblFinalAmount = new Label { Text = "0 تومان", Location = new System.Drawing.Point(300, 20), AutoSize = true, Font = new System.Drawing.Font("Tahoma", 12, System.Drawing.FontStyle.Bold), ForeColor = Color.Green };
+            var lblDiscountLabel = new Label { Text = "تخفیف کل:", Location = new System.Drawing.Point(200, 20), AutoSize = true, Font = new System.Drawing.Font("Tahoma", 12, System.Drawing.FontStyle.Bold) };
+            _lblDiscountAmount = new Label { Name = "lblDiscountAmount", Text = "0 تومان", Location = new System.Drawing.Point(300, 20), AutoSize = true, Font = new System.Drawing.Font("Tahoma", 12, System.Drawing.FontStyle.Bold), ForeColor = Color.Orange };
 
-            totalsPanel.Controls.AddRange(new Control[] { lblTotalLabel, _lblTotalAmount, lblFinalLabel, _lblFinalAmount });
+            var lblFinalLabel = new Label { Text = "مبلغ نهایی:", Location = new System.Drawing.Point(400, 20), AutoSize = true, Font = new System.Drawing.Font("Tahoma", 12, System.Drawing.FontStyle.Bold) };
+            _lblFinalAmount = new Label { Text = "0 تومان", Location = new System.Drawing.Point(500, 20), AutoSize = true, Font = new System.Drawing.Font("Tahoma", 12, System.Drawing.FontStyle.Bold), ForeColor = Color.Green };
+
+            totalsPanel.Controls.AddRange(new Control[] { lblTotalLabel, _lblTotalAmount, lblDiscountLabel, _lblDiscountAmount, lblFinalLabel, _lblFinalAmount });
 
             // پنل دکمه‌های اصلی
             var mainButtonsPanel = new Panel
@@ -333,11 +337,14 @@ namespace AccountingApp.Forms
         private void CalculateTotals(object? sender = null, EventArgs? e = null)
         {
             var totalAmount = _saleItems.Sum(item => item.TotalPrice);
-            var totalDiscount = _saleItems.Sum(item => item.DiscountAmount) + _numDiscountAmount.Value;
+            var itemsDiscount = _saleItems.Sum(item => item.DiscountAmount);
+            var invoiceDiscount = _numDiscountAmount.Value;
+            var totalDiscount = itemsDiscount + invoiceDiscount;
             var taxAmount = _numTaxAmount.Value;
             var finalAmount = totalAmount - totalDiscount + taxAmount;
 
             _lblTotalAmount.Text = totalAmount.ToString("N0") + " تومان";
+            _lblDiscountAmount.Text = totalDiscount.ToString("N0") + " تومان";
             _lblFinalAmount.Text = finalAmount.ToString("N0") + " تومان";
         }
 
@@ -405,7 +412,8 @@ namespace AccountingApp.Forms
 
                     // محاسبه مبالغ
                     sale.TotalAmount = _saleItems.Sum(item => item.TotalPrice);
-                    sale.FinalAmount = sale.TotalAmount - sale.DiscountAmount + sale.TaxAmount;
+                    var itemsDiscount = _saleItems.Sum(item => item.DiscountAmount);
+                    sale.FinalAmount = sale.TotalAmount - itemsDiscount - sale.DiscountAmount + sale.TaxAmount;
 
                     // پیدا کردن مشتری
                     var customerName = _cmbCustomer.Text;

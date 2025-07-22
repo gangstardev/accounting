@@ -2,6 +2,7 @@ using AccountingApp.Database;
 using AccountingApp.Forms;
 using AccountingApp.Repositories;
 using AccountingApp.Models;
+using AccountingApp.Services;
 using Dapper;
 using PdfSharp.Fonts;
 
@@ -10,7 +11,7 @@ namespace AccountingApp
     internal static class Program
     {
         [STAThread]
-        static void Main()
+        static async Task Main()
         {
             ApplicationConfiguration.Initialize();
             
@@ -19,6 +20,9 @@ namespace AccountingApp
             var databaseManager = new DatabaseManager();
             
             CheckDatabaseData();
+            
+            // بررسی آپدیت خودکار
+            await CheckForUpdatesAsync();
             
             Application.Run(new MainForm());
         }
@@ -56,6 +60,19 @@ namespace AccountingApp
             catch (Exception ex)
             {
                 Console.WriteLine($"خطا در بررسی پایگاه داده: {ex.Message}");
+            }
+        }
+        
+        private static async Task CheckForUpdatesAsync()
+        {
+            try
+            {
+                using var updateService = new UpdateService();
+                await updateService.CheckForUpdatesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"خطا در بررسی آپدیت: {ex.Message}");
             }
         }
     }

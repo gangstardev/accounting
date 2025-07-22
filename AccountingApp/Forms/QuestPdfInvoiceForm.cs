@@ -247,9 +247,10 @@ namespace AccountingApp.Forms
                     table.ColumnsDefinition(columns =>
                     {
                         columns.RelativeColumn(3); // نام کالا
-                        columns.RelativeColumn(1); // تعداد
-                        columns.RelativeColumn(1.5f); // قیمت واحد
-                        columns.RelativeColumn(1.5f); // جمع کل
+                        columns.RelativeColumn(0.8f); // تعداد
+                        columns.RelativeColumn(1.2f); // قیمت واحد
+                        columns.RelativeColumn(1.2f); // تخفیف
+                        columns.RelativeColumn(1.2f); // جمع کل
                     });
 
                     // هدر جدول
@@ -258,6 +259,7 @@ namespace AccountingApp.Forms
                         header.Cell().Background(Colors.Grey.Lighten2).Padding(5).AlignCenter().Text("نام کالا").FontFamily("Vazir").FontSize(10).Bold();
                         header.Cell().Background(Colors.Grey.Lighten2).Padding(5).AlignCenter().Text("تعداد").FontFamily("Vazir").FontSize(10).Bold();
                         header.Cell().Background(Colors.Grey.Lighten2).Padding(5).AlignCenter().Text("قیمت واحد").FontFamily("Vazir").FontSize(10).Bold();
+                        header.Cell().Background(Colors.Grey.Lighten2).Padding(5).AlignCenter().Text("تخفیف").FontFamily("Vazir").FontSize(10).Bold();
                         header.Cell().Background(Colors.Grey.Lighten2).Padding(5).AlignCenter().Text("جمع کل").FontFamily("Vazir").FontSize(10).Bold();
                     });
 
@@ -267,15 +269,24 @@ namespace AccountingApp.Forms
                         table.Cell().Padding(5).AlignRight().Text(item.Product.Name).FontFamily("Vazir").FontSize(9);
                         table.Cell().Padding(5).AlignCenter().Text(item.Quantity.ToString()).FontFamily("Vazir").FontSize(9);
                         table.Cell().Padding(5).AlignCenter().Text(item.UnitPrice.ToString("N0")).FontFamily("Vazir").FontSize(9);
+                        table.Cell().Padding(5).AlignCenter().Text(item.DiscountAmount.ToString("N0")).FontFamily("Vazir").FontSize(9);
                         table.Cell().Padding(5).AlignCenter().Text(item.TotalPrice.ToString("N0")).FontFamily("Vazir").FontSize(9);
                     }
                 });
 
-                // جمع کل و مبلغ نهایی
+                // جمع کل، تخفیف و مبلغ نهایی
                 column.Item().PaddingTop(10).Border(1).BorderColor(Colors.Grey.Lighten1).Padding(10).Row(row =>
                 {
                     row.RelativeItem().AlignRight().Text("جمع کل:").FontFamily("Vazir").FontSize(12).Bold();
                     row.RelativeItem().AlignLeft().Text(_sale.TotalAmount.ToString("N0") + " تومان").FontFamily("Vazir").FontSize(12).Bold();
+                });
+
+                column.Item().Row(row =>
+                {
+                    row.RelativeItem().AlignRight().Text("تخفیف کل:").FontFamily("Vazir").FontSize(12).Bold();
+                    var itemsDiscount = _sale.Items.Sum(item => item.DiscountAmount);
+                    var totalDiscount = itemsDiscount + _sale.DiscountAmount;
+                    row.RelativeItem().AlignLeft().Text(totalDiscount.ToString("N0") + " تومان").FontFamily("Vazir").FontSize(12).Bold().FontColor(Colors.Green.Medium);
                 });
 
                 column.Item().Row(row =>

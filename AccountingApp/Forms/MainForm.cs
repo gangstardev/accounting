@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using AccountingApp.Repositories;
+using AccountingApp.Services;
 
 namespace AccountingApp.Forms
 {
@@ -42,7 +43,8 @@ namespace AccountingApp.Forms
                 CreateMenuItem("مشتریان", null, (s, e) => OpenCustomersForm()),
                 CreateMenuItem("تامین‌کنندگان", null, (s, e) => OpenSuppliersForm()),
                 CreateMenuItem("محصولات", null, (s, e) => OpenProductsForm()),
-                CreateMenuItem("گزارشات", null, (s, e) => OpenReportsForm())
+                CreateMenuItem("گزارشات", null, (s, e) => OpenReportsForm()),
+                CreateMenuItem("آپدیت", null, (s, e) => CheckForUpdates())
             });
 
             this.MainMenuStrip = mainMenu;
@@ -269,6 +271,19 @@ namespace AccountingApp.Forms
         {
             var reportsForm = new ReportsForm();
             reportsForm.ShowDialog();
+        }
+        
+        private async void CheckForUpdates()
+        {
+            try
+            {
+                using var updateService = new UpdateService();
+                await updateService.CheckForUpdatesAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطا در بررسی آپدیت: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 } 
