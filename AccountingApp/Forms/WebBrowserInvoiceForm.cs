@@ -9,6 +9,7 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using System.IO;
+using System.Diagnostics;
 using Color = System.Drawing.Color;
 using System.Collections.Generic;
 
@@ -17,7 +18,6 @@ namespace AccountingApp.Forms
     public partial class WebBrowserInvoiceForm : Form
     {
         private readonly Sale _sale;
-        private WebBrowser _webBrowser;
         private ToolStrip _toolStrip;
         private string _currentPdfPath;
 
@@ -36,8 +36,8 @@ namespace AccountingApp.Forms
 
         private void InitializeComponent()
         {
-            this.Text = "نمایش فاکتور فروش - WebBrowser";
-            this.Size = new System.Drawing.Size(1200, 800);
+            this.Text = "نمایش فاکتور فروش";
+            this.Size = new System.Drawing.Size(800, 600);
             this.StartPosition = FormStartPosition.CenterParent;
             this.RightToLeft = RightToLeft.Yes;
             this.RightToLeftLayout = true;
@@ -49,8 +49,8 @@ namespace AccountingApp.Forms
                 RightToLeft = RightToLeft.Yes
             };
 
-            // دکمه پرینت
-            var btnPrint = new ToolStripButton("پرینت", CreatePrinterIcon(), BtnPrint_Click)
+            // دکمه باز کردن PDF
+            var btnOpen = new ToolStripButton("باز کردن PDF", CreateOpenIcon(), BtnOpen_Click)
             {
                 DisplayStyle = ToolStripItemDisplayStyle.ImageAndText
             };
@@ -73,16 +73,40 @@ namespace AccountingApp.Forms
                 DisplayStyle = ToolStripItemDisplayStyle.ImageAndText
             };
 
-            _toolStrip.Items.AddRange(new ToolStripItem[] { btnPrint, btnDirectPrint, btnSave, btnHelp });
+            _toolStrip.Items.AddRange(new ToolStripItem[] { btnOpen, btnDirectPrint, btnSave, btnHelp });
 
-            // ایجاد کنترل WebBrowser
-            _webBrowser = new WebBrowser
+            // ایجاد پنل اطلاعات
+            var infoPanel = new Panel
             {
                 Dock = DockStyle.Fill,
-                ScriptErrorsSuppressed = true
+                Padding = new Padding(20),
+                BackColor = Color.White
             };
 
-            this.Controls.Add(_webBrowser);
+            var lblTitle = new Label
+            {
+                Text = "فاکتور فروش آماده است",
+                Font = new Font("Tahoma", 16, FontStyle.Bold),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Top,
+                Height = 50
+            };
+
+            var lblInfo = new Label
+            {
+                Text = $"فاکتور شماره {_sale.InvoiceNumber} با موفقیت تولید شد.\n\n" +
+                       "برای مشاهده فاکتور، روی دکمه 'باز کردن PDF' کلیک کنید.\n" +
+                       "برای پرینت مستقیم، از دکمه 'پرینت مستقیم' استفاده کنید.",
+                Font = new Font("Tahoma", 12),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Fill,
+                AutoSize = false
+            };
+
+            infoPanel.Controls.Add(lblInfo);
+            infoPanel.Controls.Add(lblTitle);
+
+            this.Controls.Add(infoPanel);
             this.Controls.Add(_toolStrip);
         }
 
@@ -97,10 +121,6 @@ namespace AccountingApp.Forms
 
                 // تولید PDF با QuestPDF
                 ExportInvoiceToPdf(_currentPdfPath);
-
-                // بارگذاری PDF در WebBrowser
-                var uri = new Uri(_currentPdfPath);
-                _webBrowser.Navigate(uri);
             }
             catch (Exception ex)
             {
@@ -108,18 +128,26 @@ namespace AccountingApp.Forms
             }
         }
 
-        private void BtnPrint_Click(object? sender, EventArgs e)
+        private void BtnOpen_Click(object? sender, EventArgs e)
         {
             try
             {
-                if (_webBrowser.Document != null)
+                if (File.Exists(_currentPdfPath))
                 {
-                    _webBrowser.ShowPrintDialog();
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = _currentPdfPath,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("فایل PDF یافت نشد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"خطا در پرینت: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"خطا در باز کردن PDF: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -482,6 +510,20 @@ namespace AccountingApp.Forms
             public string interpreter { get; set; } = "";
         }
 
+        private System.Drawing.Image CreateOpenIcon()
+        {
+            var bitmap = new Bitmap(16, 16);
+            using (var g = Graphics.FromImage(bitmap))
+            {
+                g.Clear(Color.Transparent);
+                g.DrawRectangle(Pens.Blue, 2, 2, 12, 12);
+                g.DrawLine(Pens.Blue, 4, 6, 12, 6);
+                g.DrawLine(Pens.Blue, 4, 8, 12, 8);
+                g.DrawLine(Pens.Blue, 4, 10, 12, 10);
+            }
+            return bitmap;
+        }
+
         private System.Drawing.Image CreatePrinterIcon()
         {
             var bitmap = new Bitmap(16, 16);
@@ -526,7 +568,6 @@ namespace AccountingApp.Forms
         {
             if (disposing)
             {
-                _webBrowser?.Dispose();
                 _toolStrip?.Dispose();
                 
                 // حذف فایل موقت
