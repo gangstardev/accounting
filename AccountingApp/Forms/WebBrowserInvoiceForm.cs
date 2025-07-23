@@ -132,18 +132,8 @@ namespace AccountingApp.Forms
         {
             try
             {
-                if (File.Exists(_currentPdfPath))
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = _currentPdfPath,
-                        UseShellExecute = true
-                    });
-                }
-                else
-                {
-                    MessageBox.Show("فایل PDF یافت نشد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                // استفاده از روش thread-safe برای باز کردن PDF
+                AccountingApp.Utilities.ThreadSafePdfOpener.OpenPdfSafely(_currentPdfPath);
             }
             catch (Exception ex)
             {

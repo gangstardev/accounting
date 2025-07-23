@@ -15,6 +15,16 @@ namespace AccountingApp
         {
             ApplicationConfiguration.Initialize();
             
+            // تنظیم COM برای جلوگیری از مشکلات ActiveX
+            try
+            {
+                AccountingApp.Utilities.ActiveXThreadingFix.InitializeComForActiveX();
+            }
+            catch
+            {
+                // نادیده گرفتن خطا در صورت عدم موفقیت
+            }
+            
             GlobalFontSettings.FontResolver = new CustomFontResolver();
             
             var databaseManager = new DatabaseManager();
@@ -25,6 +35,16 @@ namespace AccountingApp
             await CheckForUpdatesAsync();
             
             Application.Run(new MainForm());
+            
+            // پاکسازی COM
+            try
+            {
+                AccountingApp.Utilities.ActiveXThreadingFix.CleanupCom();
+            }
+            catch
+            {
+                // نادیده گرفتن خطا
+            }
         }
         
         private static void CheckDatabaseData()

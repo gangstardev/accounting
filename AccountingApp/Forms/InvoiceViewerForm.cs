@@ -333,11 +333,8 @@ namespace AccountingApp.Forms
                 // روش 1: باز کردن PDF و درخواست پرینت از کاربر
                 try
                 {
-                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                    {
-                        FileName = tempPdfPath,
-                        UseShellExecute = true
-                    });
+                    // استفاده از روش thread-safe برای باز کردن PDF
+                    AccountingApp.Utilities.ThreadSafePdfOpener.OpenPdfSafely(tempPdfPath);
                     
                     var result = MessageBox.Show(
                         "فایل PDF باز شد.\n\n" +
