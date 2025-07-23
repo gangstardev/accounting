@@ -364,9 +364,8 @@ namespace AccountingApp.Forms
         {
             try
             {
-                // استفاده از فرم WebBrowser برای نمایش PDF
-                var printForm = new WebBrowserInvoiceForm(sale);
-                printForm.ShowDialog();
+                // استفاده از SafeInvoicePrinter برای پرینت ایمن
+                AccountingApp.Utilities.SafeInvoicePrinter.PrintSaleInvoice(sale);
             }
             catch (Exception ex)
             {

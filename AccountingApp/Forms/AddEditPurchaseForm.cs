@@ -37,6 +37,12 @@ namespace AccountingApp.Forms
             _isEdit = purchase != null;
             _purchaseItems = new List<PurchaseItem>();
 
+            // ابتدا ستون‌های DataGridView را تنظیم کنیم
+            SetupDataGridView();
+            
+            LoadSuppliers();
+            LoadProducts();
+
             if (_isEdit)
             {
                 this.Text = "ویرایش خرید";
@@ -48,10 +54,6 @@ namespace AccountingApp.Forms
                 _txtInvoiceNumber!.Text = _purchaseRepository.GenerateInvoiceNumber();
                 _dtpPurchaseDate!.Value = DateTime.Now;
             }
-
-            LoadSuppliers();
-            LoadProducts();
-            SetupDataGridView();
         }
 
         private void InitializeComponent()
@@ -302,50 +304,93 @@ namespace AccountingApp.Forms
 
         private void LoadPurchaseData()
         {
-            if (_purchase != null)
+            try
             {
-                _txtInvoiceNumber!.Text = _purchase.InvoiceNumber;
-                _cmbSupplier!.Text = _purchase.Supplier.Name;
-                _dtpPurchaseDate!.Value = _purchase.PurchaseDate;
-                _numDiscountAmount!.Value = _purchase.DiscountAmount;
-                _numTaxAmount!.Value = _purchase.TaxAmount;
-                _txtNotes!.Text = _purchase.Notes;
+                if (_purchase != null)
+                {
+                    _txtInvoiceNumber!.Text = _purchase.InvoiceNumber;
+                    _cmbSupplier!.Text = _purchase.Supplier?.Name ?? "";
+                    _dtpPurchaseDate!.Value = _purchase.PurchaseDate;
+                    _numDiscountAmount!.Value = _purchase.DiscountAmount;
+                    _numTaxAmount!.Value = _purchase.TaxAmount;
+                    _txtNotes!.Text = _purchase.Notes ?? "";
 
-                _purchaseItems = new List<PurchaseItem>(_purchase.Items);
-                RefreshItemsGrid();
-                CalculateTotals();
+                    _purchaseItems = new List<PurchaseItem>(_purchase.Items ?? new List<PurchaseItem>());
+                    RefreshItemsGrid();
+                    CalculateTotals();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطا در بارگذاری اطلاعات خرید: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void RefreshItemsGrid()
         {
-            _dgvItems!.Rows.Clear();
-            foreach (var item in _purchaseItems)
+            try
             {
-                _dgvItems.Rows.Add(
-                    item.ProductId,
-                    item.Product.Name,
-                    item.Quantity,
-                    item.UnitPrice.ToString("N0"),
-                    item.TotalPrice.ToString("N0"),
-                    item.DiscountAmount.ToString("N0"),
-                    item.FinalPrice.ToString("N0")
-                );
+                // اطمینان از وجود ستون‌ها
+                if (_dgvItems!.Columns.Count == 0)
+                {
+                    SetupDataGridView();
+                }
+
+                _dgvItems.Rows.Clear();
+                foreach (var item in _purchaseItems)
+                {
+                    _dgvItems.Rows.Add(
+                        item.ProductId,
+                        item.Product?.Name ?? "نامشخص",
+                        item.Quantity,
+                        item.UnitPrice.ToString("N0"),
+                        item.TotalPrice.ToString("N0"),
+                        item.DiscountAmount.ToString("N0"),
+                        item.FinalPrice.ToString("N0")
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطا در بارگذاری آیتم‌ها: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void CalculateTotals(object? sender = null, EventArgs? e = null)
         {
-            var totalAmount = _purchaseItems.Sum(item => item.TotalPrice);
-            var itemsDiscount = _purchaseItems.Sum(item => item.DiscountAmount);
-            var invoiceDiscount = _numDiscountAmount!.Value;
-            var totalDiscount = itemsDiscount + invoiceDiscount;
-            var taxAmount = _numTaxAmount!.Value;
-            var finalAmount = totalAmount - totalDiscount + taxAmount;
+            try
+            {
+                var totalAmount = _purchaseItems.Sum(item => item.TotalPrice);
+                var itemsDiscount = _purchaseItems.Sum(item => item.DiscountAmount);
+                var invoiceDiscount = _numDiscountAmount!.Value;
+                var totalDiscount = itemsDiscount + invoiceDiscount;
+                var taxAmount = _numTaxAmount!.Value;
+                var finalAmount = totalAmount - totalDiscount + taxAmount;
 
-            _lblTotalAmount!.Text = totalAmount.ToString("N0") + " تومان";
-            _lblDiscountAmount!.Text = totalDiscount.ToString("N0") + " تومان";
-            _lblFinalAmount!.Text = finalAmount.ToString("N0") + " تومان";
+                // اطمینان از عدم منفی بودن مبلغ نهایی
+                if (finalAmount < 0)
+                {
+                    finalAmount = 0;
+                }
+
+                _lblTotalAmount!.Text = totalAmount.ToString("N0") + " تومان";
+                _lblDiscountAmount!.Text = totalDiscount.ToString("N0") + " تومان";
+                _lblFinalAmount!.Text = finalAmount.ToString("N0") + " تومان";
+
+                // تغییر رنگ مبلغ نهایی در صورت صفر بودن
+                if (finalAmount == 0)
+                {
+                    _lblFinalAmount.ForeColor = Color.Orange;
+                }
+                else
+                {
+                    _lblFinalAmount.ForeColor = Color.Red;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطا در محاسبه مبالغ: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnAddItem_Click(object? sender, EventArgs e)
@@ -410,10 +455,8 @@ namespace AccountingApp.Forms
                     purchase.Notes = _txtNotes!.Text.Trim();
                     purchase.Items = new List<PurchaseItem>(_purchaseItems);
 
-                    // محاسبه مبالغ
-                    purchase.TotalAmount = _purchaseItems.Sum(item => item.TotalPrice);
-                    var itemsDiscount = _purchaseItems.Sum(item => item.DiscountAmount);
-                    purchase.FinalAmount = purchase.TotalAmount - itemsDiscount - purchase.DiscountAmount + purchase.TaxAmount;
+                    // محاسبه مبالغ با استفاده از helper
+                    AccountingApp.Utilities.InvoiceValidationHelper.RecalculatePurchaseAmounts(purchase);
 
                     // پیدا کردن تامین‌کننده
                     var supplierName = _cmbSupplier!.Text;
@@ -480,6 +523,21 @@ namespace AccountingApp.Forms
             if (_purchaseItems.Count == 0)
             {
                 MessageBox.Show("لطفاً حداقل یک آیتم به خرید اضافه کنید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // استفاده از helper برای اعتبارسنجی کامل
+            var purchase = new Purchase
+            {
+                Items = _purchaseItems,
+                DiscountAmount = _numDiscountAmount!.Value,
+                TaxAmount = _numTaxAmount!.Value
+            };
+
+            var (isValid, errorMessage) = AccountingApp.Utilities.InvoiceValidationHelper.ValidatePurchaseInvoice(purchase);
+            if (!isValid)
+            {
+                MessageBox.Show(errorMessage, "خطا در اعتبارسنجی", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
