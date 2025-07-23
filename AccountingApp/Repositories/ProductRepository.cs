@@ -33,6 +33,13 @@ namespace AccountingApp.Repositories
             return connection.QueryFirstOrDefault<Product>("SELECT * FROM Products WHERE Code = @Code AND IsActive = 1", new { Code = code });
         }
 
+        public Product? GetByCodeExcludingId(string code, int excludeId)
+        {
+            using var connection = _databaseManager.GetConnection();
+            return connection.QueryFirstOrDefault<Product>("SELECT * FROM Products WHERE Code = @Code AND Id != @ExcludeId AND IsActive = 1", 
+                new { Code = code, ExcludeId = excludeId });
+        }
+
         public int Add(Product product)
         {
             try
@@ -46,6 +53,10 @@ namespace AccountingApp.Repositories
                 
                 product.CreatedDate = DateTime.Now;
                 return connection.QuerySingle<int>(sql, product);
+            }
+            catch (SQLiteException ex) when (ex.Message.Contains("UNIQUE constraint failed"))
+            {
+                throw new Exception($"کد محصول '{product.Code}' قبلاً در سیستم ثبت شده است. لطفاً کد دیگری انتخاب کنید.");
             }
             catch (Exception ex)
             {
@@ -66,6 +77,10 @@ namespace AccountingApp.Repositories
                 
                 product.UpdatedDate = DateTime.Now;
                 return connection.Execute(sql, product) > 0;
+            }
+            catch (SQLiteException ex) when (ex.Message.Contains("UNIQUE constraint failed"))
+            {
+                throw new Exception($"کد محصول '{product.Code}' قبلاً در سیستم ثبت شده است. لطفاً کد دیگری انتخاب کنید.");
             }
             catch (Exception ex)
             {

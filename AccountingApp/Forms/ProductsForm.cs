@@ -81,7 +81,29 @@ namespace AccountingApp.Forms
             };
             btnRefresh.Click += BtnRefresh_Click;
 
-            searchPanel.Controls.AddRange(new Control[] { searchLabel, _searchTextBox, btnAdd, btnRefresh });
+            var btnShowCodes = new Button
+            {
+                Text = "نمایش کدها",
+                Location = new System.Drawing.Point(520, 15),
+                Size = new System.Drawing.Size(100, 30),
+                BackColor = Color.Orange,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnShowCodes.Click += BtnShowCodes_Click;
+
+            var btnDiagnostic = new Button
+            {
+                Text = "تشخیص",
+                Location = new System.Drawing.Point(630, 15),
+                Size = new System.Drawing.Size(80, 30),
+                BackColor = Color.Purple,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnDiagnostic.Click += BtnDiagnostic_Click;
+
+            searchPanel.Controls.AddRange(new Control[] { searchLabel, _searchTextBox, btnAdd, btnRefresh, btnShowCodes, btnDiagnostic });
 
             // DataGridView
             _dataGridView = new DataGridView
@@ -187,6 +209,30 @@ namespace AccountingApp.Forms
         private void BtnRefresh_Click(object? sender, EventArgs e)
         {
             LoadProducts();
+        }
+
+        private void BtnShowCodes_Click(object? sender, EventArgs e)
+        {
+            try
+            {
+                AccountingApp.Utilities.ProductCodeChecker.ShowExistingCodes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطا در نمایش کدها: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnDiagnostic_Click(object? sender, EventArgs e)
+        {
+            try
+            {
+                AccountingApp.Utilities.DatabaseDiagnostic.CheckProductCodes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطا در تشخیص پایگاه داده: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void DataGridView_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)

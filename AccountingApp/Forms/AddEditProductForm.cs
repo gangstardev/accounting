@@ -79,6 +79,7 @@ namespace AccountingApp.Forms
             // کد محصول
             var lblCode = new Label { Text = "کد محصول:", TextAlign = ContentAlignment.MiddleRight };
             _txtCode = new TextBox { Font = new System.Drawing.Font("Tahoma", 10), Height = 25 };
+            _txtCode.TextChanged += TxtCode_TextChanged;
             tableLayout.Controls.Add(lblCode, 0, 1);
             tableLayout.Controls.Add(_txtCode, 1, 1);
 
@@ -298,6 +299,41 @@ namespace AccountingApp.Forms
             this.Close();
         }
 
+        private void TxtCode_TextChanged(object? sender, EventArgs e)
+        {
+            // بررسی کد محصول در حین تایپ (فقط اگر کد خالی نباشد)
+            if (!string.IsNullOrWhiteSpace(_txtCode!.Text))
+            {
+                var code = _txtCode.Text.Trim();
+                Product? existingProduct = null;
+                
+                if (_isEdit)
+                {
+                    existingProduct = _productRepository.GetByCodeExcludingId(code, _product!.Id);
+                }
+                else
+                {
+                    existingProduct = _productRepository.GetByCode(code);
+                }
+
+                if (existingProduct != null)
+                {
+                    _txtCode.BackColor = Color.LightPink;
+                    // نمایش پیام کوچک
+                    var toolTip = new ToolTip();
+                    toolTip.SetToolTip(_txtCode, "این کد قبلاً استفاده شده است");
+                }
+                else
+                {
+                    _txtCode.BackColor = Color.White;
+                }
+            }
+            else
+            {
+                _txtCode!.BackColor = Color.White;
+            }
+        }
+
         private bool ValidateInput()
         {
             if (string.IsNullOrWhiteSpace(_txtName!.Text))
@@ -318,6 +354,17 @@ namespace AccountingApp.Forms
             if (!_isEdit)
             {
                 var existingProduct = _productRepository.GetByCode(_txtCode.Text.Trim());
+                if (existingProduct != null)
+                {
+                    MessageBox.Show("کد محصول تکراری است. لطفاً کد دیگری انتخاب کنید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    _txtCode.Focus();
+                    return false;
+                }
+            }
+            else
+            {
+                // در حالت ویرایش، بررسی کنید که کد جدید با محصولات دیگر تداخل نداشته باشد
+                var existingProduct = _productRepository.GetByCodeExcludingId(_txtCode.Text.Trim(), _product!.Id);
                 if (existingProduct != null)
                 {
                     MessageBox.Show("کد محصول تکراری است. لطفاً کد دیگری انتخاب کنید.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Warning);
