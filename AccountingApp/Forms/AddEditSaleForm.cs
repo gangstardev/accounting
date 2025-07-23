@@ -43,16 +43,30 @@ namespace AccountingApp.Forms
             LoadCustomers();
             LoadProducts();
 
-            if (_isEdit)
+            // اضافه کردن event handler برای Load event
+            this.Load += AddEditSaleForm_Load;
+        }
+
+        private void AddEditSaleForm_Load(object? sender, EventArgs e)
+        {
+            try
             {
-                this.Text = "ویرایش فروش";
-                LoadSaleData();
+                // اطمینان از آماده بودن فرم
+                if (_isEdit)
+                {
+                    this.Text = "ویرایش فروش";
+                    LoadSaleData();
+                }
+                else
+                {
+                    this.Text = "فروش جدید";
+                    _txtInvoiceNumber.Text = _saleRepository.GenerateTodayInvoiceNumber();
+                    _dtpSaleDate.Value = DateTime.Now;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                this.Text = "فروش جدید";
-                _txtInvoiceNumber.Text = _saleRepository.GenerateTodayInvoiceNumber();
-                _dtpSaleDate.Value = DateTime.Now;
+                MessageBox.Show($"خطا در بارگذاری فرم: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -289,17 +303,72 @@ namespace AccountingApp.Forms
 
         private void SetupDataGridView()
         {
-            _dgvItems.Columns.Clear();
-            _dgvItems.Columns.AddRange(new DataGridViewColumn[]
+            try
             {
-                new DataGridViewTextBoxColumn { Name = "ProductId", HeaderText = "شناسه محصول", Visible = false },
-                new DataGridViewTextBoxColumn { Name = "ProductName", HeaderText = "نام محصول", Width = 200 },
-                new DataGridViewTextBoxColumn { Name = "Quantity", HeaderText = "تعداد", Width = 80 },
-                new DataGridViewTextBoxColumn { Name = "UnitPrice", HeaderText = "قیمت واحد", Width = 120 },
-                new DataGridViewTextBoxColumn { Name = "TotalPrice", HeaderText = "قیمت کل", Width = 120 },
-                new DataGridViewTextBoxColumn { Name = "DiscountAmount", HeaderText = "تخفیف", Width = 100 },
-                new DataGridViewTextBoxColumn { Name = "FinalPrice", HeaderText = "قیمت نهایی", Width = 120 }
-            });
+                // اطمینان از وجود DataGridView
+                if (_dgvItems == null)
+                {
+                    MessageBox.Show("خطا: DataGridView در دسترس نیست", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // پاک کردن ستون‌های موجود به صورت ایمن
+                if (_dgvItems.InvokeRequired)
+                {
+                    _dgvItems.Invoke(new Action(() => _dgvItems.Columns.Clear()));
+                }
+                else
+                {
+                    _dgvItems.Columns.Clear();
+                }
+
+                // تعریف ستون‌ها
+                var columns = new DataGridViewColumn[]
+                {
+                    new DataGridViewTextBoxColumn { Name = "ProductId", HeaderText = "شناسه محصول", Visible = false },
+                    new DataGridViewTextBoxColumn { Name = "ProductName", HeaderText = "نام محصول", Width = 200 },
+                    new DataGridViewTextBoxColumn { Name = "Quantity", HeaderText = "تعداد", Width = 80 },
+                    new DataGridViewTextBoxColumn { Name = "UnitPrice", HeaderText = "قیمت واحد", Width = 120 },
+                    new DataGridViewTextBoxColumn { Name = "TotalPrice", HeaderText = "قیمت کل", Width = 120 },
+                    new DataGridViewTextBoxColumn { Name = "DiscountAmount", HeaderText = "تخفیف", Width = 100 },
+                    new DataGridViewTextBoxColumn { Name = "FinalPrice", HeaderText = "قیمت نهایی", Width = 120 }
+                };
+
+                // اضافه کردن ستون‌ها به صورت ایمن
+                if (_dgvItems.InvokeRequired)
+                {
+                    _dgvItems.Invoke(new Action(() => _dgvItems.Columns.AddRange(columns)));
+                }
+                else
+                {
+                    _dgvItems.Columns.AddRange(columns);
+                }
+
+                // تنظیمات اضافی DataGridView
+                if (_dgvItems.InvokeRequired)
+                {
+                    _dgvItems.Invoke(new Action(() =>
+                    {
+                        _dgvItems.AllowUserToAddRows = false;
+                        _dgvItems.AllowUserToDeleteRows = false;
+                        _dgvItems.ReadOnly = true;
+                        _dgvItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                        _dgvItems.MultiSelect = false;
+                    }));
+                }
+                else
+                {
+                    _dgvItems.AllowUserToAddRows = false;
+                    _dgvItems.AllowUserToDeleteRows = false;
+                    _dgvItems.ReadOnly = true;
+                    _dgvItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    _dgvItems.MultiSelect = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطا در تنظیم DataGridView: {ex.Message}\n\nجزئیات: {ex.StackTrace}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadSaleData()
@@ -316,13 +385,53 @@ namespace AccountingApp.Forms
                     _txtNotes.Text = _sale.Notes ?? "";
 
                     _saleItems = new List<SaleItem>(_sale.Items ?? new List<SaleItem>());
+                    
+                    // اطمینان از آماده بودن DataGridView
+                    EnsureDataGridViewReady();
+                    
                     RefreshItemsGrid();
                     CalculateTotals();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"خطا در بارگذاری اطلاعات فروش: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"خطا در بارگذاری اطلاعات فروش: {ex.Message}\n\nجزئیات: {ex.StackTrace}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void EnsureDataGridViewReady()
+        {
+            try
+            {
+                // اطمینان از وجود DataGridView
+                if (_dgvItems == null)
+                {
+                    MessageBox.Show("خطا: DataGridView در دسترس نیست", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // اطمینان از وجود ستون‌ها
+                if (_dgvItems.Columns.Count == 0)
+                {
+                    SetupDataGridView();
+                    
+                    // بررسی مجدد
+                    if (_dgvItems.Columns.Count == 0)
+                    {
+                        MessageBox.Show("خطا: ستون‌های DataGridView تنظیم نشد", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                // اطمینان از آماده بودن کنترل
+                if (!_dgvItems.IsHandleCreated)
+                {
+                    _dgvItems.CreateHandle();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطا در آماده‌سازی DataGridView: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -330,29 +439,51 @@ namespace AccountingApp.Forms
         {
             try
             {
-                // اطمینان از وجود ستون‌ها
-                if (_dgvItems.Columns.Count == 0)
+                // اطمینان از آماده بودن DataGridView
+                EnsureDataGridViewReady();
+
+                // پاک کردن ردیف‌ها به صورت ایمن
+                if (_dgvItems.InvokeRequired)
                 {
-                    SetupDataGridView();
+                    _dgvItems.Invoke(new Action(() => _dgvItems.Rows.Clear()));
+                }
+                else
+                {
+                    _dgvItems.Rows.Clear();
                 }
 
-                _dgvItems.Rows.Clear();
+                // اضافه کردن ردیف‌ها
                 foreach (var item in _saleItems)
                 {
-                    _dgvItems.Rows.Add(
-                        item.ProductId,
-                        item.Product?.Name ?? "نامشخص",
-                        item.Quantity,
-                        item.UnitPrice.ToString("N0"),
-                        item.TotalPrice.ToString("N0"),
-                        item.DiscountAmount.ToString("N0"),
-                        item.FinalPrice.ToString("N0")
-                    );
+                    if (_dgvItems.InvokeRequired)
+                    {
+                        _dgvItems.Invoke(new Action(() => _dgvItems.Rows.Add(
+                            item.ProductId,
+                            item.Product?.Name ?? "نامشخص",
+                            item.Quantity,
+                            item.UnitPrice.ToString("N0"),
+                            item.TotalPrice.ToString("N0"),
+                            item.DiscountAmount.ToString("N0"),
+                            item.FinalPrice.ToString("N0")
+                        )));
+                    }
+                    else
+                    {
+                        _dgvItems.Rows.Add(
+                            item.ProductId,
+                            item.Product?.Name ?? "نامشخص",
+                            item.Quantity,
+                            item.UnitPrice.ToString("N0"),
+                            item.TotalPrice.ToString("N0"),
+                            item.DiscountAmount.ToString("N0"),
+                            item.FinalPrice.ToString("N0")
+                        );
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"خطا در بارگذاری آیتم‌ها: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"خطا در بارگذاری آیتم‌ها: {ex.Message}\n\nجزئیات: {ex.StackTrace}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
